@@ -11,7 +11,7 @@
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     @keyframes fadeSlide { 0% { opacity:0.6; transform:translateY(0); } 100% { opacity:1; transform:translateY(-2px); } }
-    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    html { scroll-padding-top: 80px; }
 
     :root {
       --primary: #2e8b57;
@@ -38,6 +38,7 @@
       color: var(--text);
       line-height: 1.7;
       overflow-x: hidden;
+      overflow-anchor: none;
     }
 
     img { max-width: 100%; display: block; }
@@ -126,7 +127,7 @@
     .gallery-grid { display: flex; flex-direction: column; }
 
     .gallery-item {
-      position: relative; overflow: hidden; width: 100%; height: 100vh; height: 100dvh;
+      position: relative; overflow: hidden; width: 100%; height: 100vh; height: 100svh;
     }
     .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .gallery-item .overlay {

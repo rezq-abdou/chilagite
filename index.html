@@ -1,0 +1,1162 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>شيلاجيت | القوة الطبيعية الخام</title>
+  <meta name="description" content="شيلاجيت الطبيعي من الهمالايا - طاقة خارقة وأداء رياضي ومناعة أقوى. اطلب الآن.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    @keyframes fadeSlide { 0% { opacity:0.6; transform:translateY(0); } 100% { opacity:1; transform:translateY(-2px); } }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+    :root {
+      --primary: #2e8b57;
+      --primary-dark: #1f6b3f;
+      --primary-light: #4aad77;
+      --accent: #d4a04e;
+      --bg: #080c09;
+      --bg-card: #101712;
+      --bg-elevated: #182218;
+      --text: #e6f0ea;
+      --text-secondary: #a8c4b2;
+      --text-muted: #5f7a69;
+      --border: #1b2c20;
+      --grad: linear-gradient(135deg, #2e8b57, #4aad77);
+      --grad-accent: linear-gradient(135deg, #d4a04e, #e8bc6a);
+      --shadow: 0 8px 32px rgba(46, 139, 87, 0.18);
+      --radius: 12px;
+      --font: 'Cairo', sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; display: block; }
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+    .label {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+    }
+    .label::before {
+      content: ''; width: 20px; height: 2px; background: var(--accent); display: inline-block;
+    }
+    .h2 { font-size: clamp(24px, 3vw, 36px); font-weight: 900; margin-bottom: 10px; line-height: 1.2; }
+    .p { font-size: 14px; color: var(--text-secondary); line-height: 1.8; max-width: 500px; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 30px; border-radius: 60px;
+      font-family: var(--font); font-size: 14px; font-weight: 700;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: all 0.3s cubic-bezier(.4,0,.2,1);
+    }
+    .btn-primary { background: var(--grad); color: #fff; box-shadow: var(--shadow); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(46, 139, 87, 0.25); }
+    .btn-accent { background: var(--grad-accent); color: #0a0f0b; }
+    .btn-accent:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(212, 160, 78, 0.25); }
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-outline:hover { border-color: var(--primary); background: rgba(46, 139, 87, 0.06); }
+    .btn-lg { padding: 16px 40px; font-size: 16px; }
+
+    /* ── Header ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 14px 0; transition: 0.3s;
+    }
+    header.scrolled {
+      background: rgba(8, 12, 9, 0.92); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(46, 139, 87, 0.08);
+      padding: 8px 0;
+    }
+    nav { display: flex; align-items: center; justify-content: space-between; }
+    .logo {
+      display: flex; align-items: center; gap: 10px; text-decoration: none;
+      font-size: 22px; font-weight: 800; color: var(--text);
+    }
+    .logo-icon {
+      width: 38px; height: 38px; border-radius: 10px; overflow: hidden;
+      background: var(--grad); display: flex; align-items: center; justify-content: center;
+    }
+    .logo-icon img { width: 100%; height: 100%; object-fit: contain; }
+    .nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
+    .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; transition: 0.3s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: var(--primary); transition: 0.3s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta { padding: 8px 22px; border-radius: 60px; background: var(--grad); color: #fff !important; font-weight: 700; }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { box-shadow: var(--shadow); }
+    .menu-toggle { display: none; flex-direction: column; gap: 4px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .menu-toggle span { width: 24px; height: 2.5px; background: var(--text); border-radius: 4px; transition: 0.3s; }
+    .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+    .menu-toggle.active span:nth-child(2) { opacity: 0; }
+    .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* ── 1. Hero ── */
+
+    section { padding: 80px 0; }
+    .text-center { text-align: center; }
+    .text-center .p { margin: 0 auto 36px; }
+
+    /* ── 2. Gallery ── */
+    #gallery { background: linear-gradient(180deg, rgba(46, 139, 87, 0.02) 0%, transparent 100%); }
+
+    .gallery-headline-wrapper {
+      display: flex; align-items: center; justify-content: center; gap: 18px;
+    }
+    .gallery-headline {
+      font-size: 1.5rem; font-weight: 800; margin: 0;
+      background: linear-gradient(135deg, var(--accent), #f0c060);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 0.5px;
+    }
+
+    .gallery-grid { display: flex; flex-direction: column; }
+
+    .gallery-item {
+      position: relative; overflow: hidden; width: 100%; height: 100vh;
+    }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-item .overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(8,12,9,0.05) 0%, rgba(8,12,9,0.7) 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 48px 40px;
+    }
+    .gallery-item .overlay .tag {
+      display: inline-block; width: fit-content; padding: 4px 14px;
+      background: rgba(212, 160, 78, 0.15); border: 1px solid rgba(212, 160, 78, 0.2);
+      border-radius: 60px; font-size: 10px; font-weight: 700; color: var(--accent);
+      letter-spacing: 1px; margin-bottom: 12px;
+    }
+    .gallery-item .overlay h3 {
+      font-size: clamp(24px, 5vw, 42px); font-weight: 900; line-height: 1.15;
+      margin-bottom: 8px; text-shadow: 0 2px 24px rgba(0,0,0,0.5);
+    }
+    .gallery-item .overlay p {
+      font-size: clamp(13px, 2vw, 16px); color: rgba(255,255,255,0.7); line-height: 1.7;
+      max-width: 520px; text-shadow: 0 1px 12px rgba(0,0,0,0.4);
+    }
+    .gallery-item .overlay .btn {
+      margin-top: 14px; display: inline-flex; width: fit-content;
+    }
+    .img-frame {
+      position: relative; overflow: hidden;
+      border: 1px solid rgba(46, 139, 87, 0.12);
+    }
+    .img-frame::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(46, 139, 87, 0.04), rgba(212, 160, 78, 0.02));
+      pointer-events: none;
+    }
+
+    /* ── 3. Order ── */
+    #order {
+      background: linear-gradient(180deg, transparent 0%, rgba(46, 139, 87, 0.02) 50%, transparent 100%);
+    }
+
+    .order-grid { max-width: 580px; margin: 0 auto; }
+
+    .order-card {
+      background: linear-gradient(135deg, rgba(46, 139, 87, 0.04), rgba(212, 160, 78, 0.02));
+      border: 1px solid var(--border); border-radius: var(--radius); padding: 36px 32px; text-align: center;
+    }
+    .order-card .tag {
+      display: inline-block; padding: 4px 14px; border-radius: 60px;
+      background: rgba(212, 160, 78, 0.08); color: var(--accent);
+      font-size: 10px; font-weight: 700; letter-spacing: 2px; margin-bottom: 12px;
+    }
+    .order-card .price { font-size: 48px; font-weight: 900; margin-bottom: 4px; }
+    .order-card .price small { font-size: 20px; vertical-align: super; }
+    .order-card .period { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; }
+    .order-card ul { list-style: none; text-align: right; margin-bottom: 20px; }
+    .order-card ul li {
+      display: flex; align-items: center; gap: 8px; padding: 7px 0;
+      font-size: 13px; color: var(--text-secondary);
+      border-bottom: 1px solid rgba(255,255,255,0.02);
+    }
+    .order-card ul li::before { content: "✓"; color: var(--primary); font-weight: 700; }
+    .order-card .btn { width: 100%; justify-content: center; }
+
+    .form-wrap { }
+    .form-wrap h3 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+    .form-wrap .p { margin-bottom: 20px !important; }
+
+    .order-form { display: flex; flex-direction: column; gap: 12px; }
+    .order-form input, .order-form select {
+      width: 100%; padding: 14px 18px; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--bg-card);
+      color: var(--text); font-family: var(--font); font-size: 14px;
+      transition: 0.3s; text-align: right; outline: none; appearance: none;
+    }
+    .order-form input:focus, .order-form select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.08); }
+    .order-form input::placeholder { color: var(--text-muted); }
+
+    .qty-wrap {
+      display: flex; align-items: center; gap: 0; direction: ltr;
+      border: 1px solid var(--border); border-radius: 10px;
+      background: var(--bg-card); overflow: hidden;
+    }
+    .qty-wrap button {
+      width: 46px; height: 46px; cursor: pointer;
+      font-size: 18px; color: var(--text); transition: 0.2s;
+      display: flex; align-items: center; justify-content: center;
+      background: none; border: none; font-family: var(--font);
+    }
+    .qty-wrap button:hover { background: rgba(255,255,255,0.03); color: var(--primary); }
+    .qty-wrap input {
+      width: 56px; height: 46px; text-align: center;
+      font-weight: 700; font-size: 15px; border: none;
+      border-left: 1px solid var(--border); border-right: 1px solid var(--border);
+      background: transparent; color: var(--text); outline: none;
+    }
+    .qty-wrap input[type="number"] { -moz-appearance: textfield; }
+
+    .order-img {
+      border-radius: var(--radius); overflow: hidden;
+      aspect-ratio: 3 / 4; max-height: 420px;
+      border: 1px solid var(--border); box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+    .order-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── 4. Features + Ingredients ── */
+    #features { }
+
+    .fi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+
+    .features-list { display: flex; flex-direction: column; gap: 8px; }
+    .f-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: linear-gradient(135deg, var(--bg-card), rgba(46,139,87,0.04));
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px 18px; transition: all 0.3s ease;
+    }
+    .f-item:hover {
+      border-color: rgba(212,160,78,0.2); box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .f-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; min-width: 28px; border-radius: 50%;
+      background: var(--grad-accent); color: #0a0f0b;
+      font-size: 11px; font-weight: 800; flex-shrink: 0; margin-top: 2px;
+    }
+    .f-item h4 { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+    .f-item p { font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
+
+    .ingredients-box {
+      background: linear-gradient(135deg, var(--bg-card), rgba(46,139,87,0.04));
+      border: 1px solid var(--border); border-radius: 14px; padding: 28px;
+      transition: all 0.3s ease;
+    }
+    .ingredients-box:hover {
+      border-color: rgba(212,160,78,0.2); box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .ingredients-box h3 {
+      font-size: 18px; font-weight: 800; margin-bottom: 14px;
+      background: linear-gradient(135deg, var(--accent), #f0c060);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .ingredients-box .usage {
+      padding: 14px 16px; background: rgba(212,160,78,0.04);
+      border-radius: 10px; margin-bottom: 16px;
+      border: 1px solid rgba(212,160,78,0.1);
+    }
+    .ingredients-box .usage p { font-size: 13px; color: var(--text-secondary); margin: 0; }
+    .ingredients-box .usage strong { color: var(--accent); }
+    .ing-list { display: flex; flex-direction: column; gap: 8px; }
+    .ing-item {
+      display: flex; align-items: center; gap: 12px;
+      background: linear-gradient(135deg, var(--bg-card), rgba(46,139,87,0.04));
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 12px 16px; transition: all 0.3s ease;
+    }
+    .ing-item:hover {
+      border-color: rgba(212,160,78,0.2); box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .ing-item span:last-child { font-size: 13px; color: var(--text-secondary); }
+
+
+    /* ── 5. Testimonials ── */
+    #reviews { background: linear-gradient(180deg, rgba(46, 139, 87, 0.02) 0%, transparent 100%); }
+
+    .reviews-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .r-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+    }
+    .r-card:hover { border-color: rgba(46, 139, 87, 0.08); }
+    .r-stars { color: var(--accent); font-size: 13px; margin-bottom: 10px; }
+    .r-card blockquote { font-size: 13px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px; font-style: italic; }
+    .r-author { display: flex; align-items: center; gap: 10px; }
+    .r-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--grad); display: flex; align-items: center;
+      justify-content: center; font-weight: 800; font-size: 14px; color: #fff;
+    }
+    .r-name { font-size: 14px; font-weight: 600; }
+    .r-role { font-size: 11px; color: var(--text-muted); }
+
+    /* ── 5. Contact ── */
+    #contact {
+      background: linear-gradient(180deg, transparent 0%, rgba(46,139,87,0.04) 50%, transparent 100%);
+      position: relative; overflow: hidden;
+    }
+    .contact-ornament {
+      width: 50px; height: 3px; margin: 0 auto 18px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      border-radius: 2px;
+    }
+    .contact-heading {
+      background: linear-gradient(135deg, var(--accent), #f0c060);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; font-size: 1.8rem; font-weight: 900;
+    }
+    .contact-wrapper {
+      display: flex; flex-direction: column; align-items: center; gap: 32px;
+    }
+    .contact-info {
+      display: flex; align-items: center; justify-content: center; gap: 24px;
+      flex-wrap: wrap;
+    }
+    .contact-card {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      background: linear-gradient(145deg, var(--bg-card), rgba(46,139,87,0.06));
+      border: 1px solid rgba(212,160,78,0.12);
+      border-radius: 18px; padding: 24px 40px 20px;
+      text-decoration: none; transition: all 0.4s cubic-bezier(.4,0,.2,1);
+      min-width: 180px;
+    }
+    .contact-card:hover {
+      border-color: rgba(212,160,78,0.3);
+      box-shadow: 0 8px 32px rgba(212,160,78,0.08), inset 0 1px 0 rgba(212,160,78,0.05);
+      transform: translateY(-4px);
+    }
+    .contact-circle {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, rgba(212,160,78,0.15), rgba(212,160,78,0.05));
+      border: 1px solid rgba(212,160,78,0.15);
+      font-size: 22px; transition: 0.4s;
+    }
+    .contact-card:hover .contact-circle {
+      background: var(--grad-accent); border-color: transparent;
+      transform: scale(1.05);
+    }
+    .contact-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      color: var(--text-muted); text-transform: uppercase;
+    }
+    .contact-value {
+      font-size: 15px; font-weight: 700; color: var(--text);
+      direction: ltr; display: inline-block; transition: 0.3s;
+    }
+    .contact-card:hover .contact-value { color: var(--accent); }
+    .contact-divider {
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      border-radius: 2px;
+    }
+    .contact-logo-wrap {
+      position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .contact-logo-glow {
+      position: absolute; width: 130px; height: 130px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,160,78,0.12) 0%, transparent 70%);
+      animation: pulseGlow 2.5s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.15); opacity: 1; }
+    }
+    .contact-logo {
+      width: 100px; height: 100px; border-radius: 50%; overflow: hidden;
+      border: 2px solid rgba(212,160,78,0.2);
+      background: var(--bg-card); display: flex; align-items: center;
+      justify-content: center; transition: 0.4s; position: relative; z-index: 1;
+    }
+    .contact-logo:hover {
+      border-color: var(--accent); box-shadow: 0 0 40px rgba(212,160,78,0.15);
+      transform: scale(1.03);
+    }
+    .contact-logo img { width: 90%; height: 90%; object-fit: contain; }
+
+    /* ── 6. FAQ ── */
+    .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+    .faq-item {
+      background: linear-gradient(135deg, var(--bg-card), rgba(46,139,87,0.04));
+      border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; transition: all 0.3s ease;
+    }
+    .faq-item:hover { border-color: rgba(212,160,78,0.2); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+    .faq-item.open {
+      border-color: rgba(212,160,78,0.3);
+      background: linear-gradient(135deg, var(--bg-card), rgba(212,160,78,0.06));
+    }
+    .faq-q {
+      width: 100%; padding: 16px 20px; display: flex; align-items: center;
+      justify-content: space-between; gap: 12px; background: none; border: none;
+      color: var(--text); font-family: var(--font); font-size: 14px;
+      font-weight: 700; cursor: pointer; text-align: right; letter-spacing: 0.3px;
+    }
+    .faq-q .q-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--grad-accent); color: #0a0f0b;
+      font-size: 11px; font-weight: 800; flex-shrink: 0;
+    }
+    .faq-q .arrow {
+      transition: 0.3s; font-size: 10px; color: var(--text-muted);
+      margin-right: auto;
+    }
+    .faq-item.open .faq-q .arrow { transform: rotate(180deg); color: var(--accent); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.3s ease; padding: 0 20px; }
+    .faq-item.open .faq-a { max-height: 300px; padding: 0 20px 18px; }
+    .faq-a p {
+      color: var(--text-secondary); font-size: 14px; line-height: 1.9;
+      padding-right: 40px;
+    }
+
+
+    .footer-bottom { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); text-align: center; font-size: 11px; color: var(--text-muted); }
+
+    /* ── Sticky Bar ── */
+    #sticky-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 99;
+      background: rgba(8, 12, 9, 0.94); backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(46, 139, 87, 0.08);
+      padding: 10px 24px; display: flex; align-items: center;
+      justify-content: center; gap: 20px;
+      transform: translateY(100%); transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+    }
+    #sticky-bar.show { transform: translateY(0); }
+    #sticky-bar .info { text-align: right; }
+    #sticky-bar .info .label { font-size: 10px; color: var(--text-muted); }
+    #sticky-bar .info .price { font-size: 18px; font-weight: 800; color: var(--accent); }
+    #sticky-bar .btn { padding: 10px 28px; font-size: 14px; }
+
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: all 0.6s cubic-bezier(.4,0,.2,1); }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .menu-toggle { display: flex; }
+      .nav-links {
+        position: fixed; top: 56px; left: 0; right: 0;
+        background: rgba(8, 12, 9, 0.98); backdrop-filter: blur(20px);
+        flex-direction: column; padding: 24px; gap: 16px;
+        border-bottom: 1px solid var(--border);
+        transform: translateY(-120%); opacity: 0; transition: 0.3s;
+      }
+      .nav-links.open { transform: translateY(0); opacity: 1; }
+
+      .hero-grid, .order-grid, .fi-grid { grid-template-columns: 1fr; gap: 36px; }
+      .hero-grid { text-align: center; }
+
+      .hero-content { padding-top: 60px; }
+
+      .gallery-item { height: 92vh; }
+      .gallery-item .overlay { padding: 28px 20px; }
+      .gallery-item .overlay h3 { font-size: clamp(20px, 6vw, 28px); }
+      .gallery-item .overlay p { font-size: 13px; }
+
+      .reviews-grid { grid-template-columns: 1fr; }
+
+      section { padding: 50px 0; }
+      #sticky-bar .info { display: none; }
+      .footer-inner { flex-direction: column; text-align: center; }
+
+      .order-card ul { text-align: center; }
+      .order-card ul li { justify-content: center; }
+    }
+
+    @media (max-width: 480px) {
+
+      .btn-lg { padding: 14px 32px; font-size: 15px; }
+      .gallery-item { height: 90vh; }
+      .gallery-item .overlay { padding: 20px 16px; }
+      .gallery-item .overlay h3 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ Header ═══ -->
+  <header id="header">
+    <div class="container">
+      <nav>
+        <div style="flex:1;text-align:center;font-size:13px;color:#fff;font-weight:800;animation:fadeSlide 2s ease-in-out infinite alternate;">التوصيل متوفر لـ 58 ولاية</div>
+        <button class="menu-toggle" id="menuToggle" aria-label="القائمة">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#features">المميزات</a></li>
+          <li><a href="#faq">الأسئلة</a></li>
+          <li><a href="#pageForm"><span class="nav-cta">اطلب الآن</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ═══ 1. GALLERY ═══ -->
+  <section id="gallery">
+    <div class="container">
+      <div class="text-center reveal" style="padding:80px 20px 40px;">
+        <div class="gallery-headline-wrapper">
+          <h2 class="h2 gallery-headline">ابدأ رحلتك مع الطاقة الطبيعية اليوم</h2>
+        </div>
+      </div>
+      <div class="gallery-grid reveal">
+        <div class="gallery-item">
+          <img src="shilajit-hero.jpeg" alt="شيلاجيت طبيعي">
+          <div class="overlay">
+
+            <h3>شيلاجيت الطبيعي الخام</h3>
+            <p>مستخلص طبيعي من جبال الهمالايا بتركيبة فريدة غنية بالمعادن والفولفيك أسيد.</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="shilajit-2.jpeg" alt="شيلاجيت">
+          <div class="overlay">
+            <div class="tag">⚡ الميزة</div>
+            <h3>طاقة طبيعية تدوم طوال اليوم</h3>
+            <p>يعزز إنتاج ATP في الميتوكوندريا ليمنحك نشاطاً حقيقياً بدون كافيين أو منشطات صناعية.</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="shilajit-3.jpeg" alt="شيلاجيت">
+          <div class="overlay">
+            <div class="tag">💪 الفائدة</div>
+            <h3>أداء رياضي خارق</h3>
+            <p>يحسن التحمل ويسرع التعافي العضلي ويزيد القوة البدنية. مثالي للرياضيين قبل التمرين وبعده.</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="shilajit-5.jpeg" alt="شيلاجيت">
+          <div class="overlay">
+            <div class="tag">🧠 العضوية</div>
+            <h3>وضوح ذهني وتركيز أقوى</h3>
+            <p>يغذي الدماغ بمضادات الأكسدة ويحسن الذاكرة والتركيز ويحمي من التدهور المعرفي.</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="shilajit-6.jpeg" alt="أداء رياضي">
+          <div class="overlay">
+            <div class="tag">🛡️ المناعة</div>
+            <h3>مناعة أقوى وصحة أفضل</h3>
+            <p>مضاد أكسدة طبيعي قوي يحمي الخلايا من التلف ويقوي جهاز المناعة لمقاومة الأمراض.</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="shilajit-7.jpeg" alt="شيلاجيت والرياضة">
+          <div class="overlay">
+            <div class="tag">🔥 عرض خاص</div>
+            <h3>3,500 د.ج فقط</h3>
+            <div style="font-size:13px;color:var(--accent);font-weight:700;margin-bottom:6px;">كل الشيلاجيت الأصلي 40غ</div>
+            <a href="#pageForm" class="btn btn-accent">اطلب الآن ←</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 2. ORDER ═══ -->
+  <section id="order">
+    <div class="container">
+      <div class="text-center reveal">
+        <div style="display:inline-block;background:var(--grad-accent);color:#0a0f0b;font-weight:700;font-size:15px;padding:8px 22px;border-radius:60px;margin-top:-16px;margin-bottom:12px;">املأ معلوماتك وسنراسلك لتأكيد الطلب</div>
+      </div>
+      <div class="order-grid">
+        <div class="reveal">
+          <div style="max-width:480px;margin:0 auto;">
+            <div style="text-align:center;font-size:28px;font-weight:900;color:var(--accent);margin-bottom:16px;">3,500 <small style="font-size:16px;font-weight:400;">د.ج</small></div>
+            <form class="order-form" id="pageForm">
+                <input type="text" name="name" placeholder="الاسم الكامل" required>
+                <input type="tel" name="phone" placeholder="رقم الهاتف" required>
+                <select name="wilaya" id="pageWilaya" required>
+                  <option value="" disabled selected>الولاية</option>
+                </select>
+                <select name="municipality" id="pageMunicipality" required disabled>
+                  <option value="" disabled selected>اختر الولاية أولاً</option>
+                </select>
+                <select name="delivery" required>
+                  <option value="" disabled selected>نوع التوصيل</option>
+                  <option value="office">توصيل للمكتب</option>
+                  <option value="home">توصيل للمنزل</option>
+                </select>
+                <div class="qty-wrap">
+                  <button type="button" onclick="pageQtyChange(-1)">−</button>
+                  <input type="number" name="qty" id="pageQtyInput" value="1" min="1" max="5" readonly>
+                  <button type="button" onclick="pageQtyChange(1)">+</button>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:15px 30px;font-size:16px;">تأكيد الطلب ✓</button>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 3. FEATURES + INGREDIENTS ═══ -->
+  <section id="features">
+    <div class="container">
+      <div class="text-center reveal">
+        <div class="label">المميزات والمكونات</div>
+        <h2 class="h2">لماذا شيلاجيت؟</h2>
+        <p class="p">اكتشف السر وراء قوة هذا الكنز الطبيعي.</p>
+      </div>
+      <div class="fi-grid">
+        <div class="reveal">
+          <div class="features-list">
+            <div class="f-item">
+              <span class="f-icon">1</span>
+              <div>
+                <h4>مصدر طبيعي نقي</h4>
+                <p>يُستخرج من الصخور الجبلية ويكون غني بالمعادن والعناصر الطبيعية الضرورية للجسم.</p>
+              </div>
+            </div>
+            <div class="f-item">
+              <span class="f-icon">2</span>
+              <div>
+                <h4>دعم الطاقة اليومية</h4>
+                <p>يساعد على تحسين النشاط وتقليل الشعور بالإرهاق، خاصة عند الأشخاص الذين يعانون من التعب المستمر.</p>
+              </div>
+            </div>
+            <div class="f-item">
+              <span class="f-icon">3</span>
+              <div>
+                <h4>دعم التركيز والذهن</h4>
+                <p>يُستخدم لتعزيز الانتباه والوضوح الذهني خلال الدراسة أو العمل.</p>
+              </div>
+            </div>
+            <div class="f-item">
+              <span class="f-icon">4</span>
+              <div>
+                <h4>مناسب للرياضيين</h4>
+                <p>يدعم القدرة على التحمل ويساعد في تحسين الأداء البدني أثناء التمارين.</p>
+              </div>
+            </div>
+            <div class="f-item">
+              <span class="f-icon">5</span>
+              <div>
+                <h4>تقوية عامة للجسم</h4>
+                <p>يحتوي على معادن طبيعية قد تساهم في دعم الصحة العامة والمناعة.</p>
+              </div>
+            </div>
+            <div class="f-item">
+              <span class="f-icon">6</span>
+              <div>
+                <h4>عبوة اقتصادية (40غ)</h4>
+                <p>تكفي لفترة تتراوح تقريبًا بين 20 إلى 40 يوم حسب طريقة الاستعمال، ما يجعلها مناسبة للاستخدام المستمر.</p>
+              </div>
+            </div>
+            <div class="f-item">
+              <span class="f-icon">7</span>
+              <div>
+                <h4>منتج أصيل (ميزة مهمة)</h4>
+                <p>الشيلاجيت الأصلي يتميز بالنقاء وفعالية أعلى مقارنة بالأنواع المقلدة أو المخلوطة.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="ingredients-box">
+            <h3>المكونات والاستخدام</h3>
+            <div class="usage">
+              <p><span class="f-icon" style="display:inline-flex;width:22px;height:22px;font-size:9px;vertical-align:middle;margin-left:6px;">!</span> <strong>طريقة الاستخدام:</strong> خذ كمية بحجم حبة الحمص، ذوبها في ماء فاتر أو حليب، واشربها يومياً على الريق أو قبل التمرين بنصف ساعة.</p>
+            </div>
+            <div class="ing-list">
+              <div class="ing-item">
+                <span class="f-icon">1</span>
+                <span>حماض الفولفيك (Fulvic Acid)</span>
+              </div>
+              <div class="ing-item">
+                <span class="f-icon">2</span>
+                <span>أحماض الهيوميك (Humic Acid)</span>
+              </div>
+              <div class="ing-item">
+                <span class="f-icon">3</span>
+                <span>معادن طبيعية (حديد، مغنيسيوم، زنك، بوتاسيوم)</span>
+              </div>
+              <div class="ing-item">
+                <span class="f-icon">4</span>
+                <span>مركبات عضوية نباتية متحللة عبر آلاف السنين</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ 4. FAQ + FOOTER ═══ -->
+  <section id="faq-section">
+    <div class="container">
+      <div class="text-center reveal">
+        <div class="label">الأسئلة الشائعة</div>
+        <h2 class="h2">الاستفسارات المتكررة</h2>
+        <p class="p">أجوبة على أكثر الأسئلة التي تهم عملاءنا.</p>
+      </div>
+      <div class="faq-list reveal">
+        <div class="faq-item open">
+          <button class="faq-q"><span class="q-icon">1</span> كم تدوم العبوة الواحدة (40غ)؟ <span class="arrow">▼</span></button>
+          <div class="faq-a"><p>تدوم عادة من 20 إلى 40 يومًا حسب طريقة الاستعمال والجرعة اليومية (مرة إلى مرتين في اليوم).</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span class="q-icon">2</span> هل الشحن متوفر لجميع الولايات؟ <span class="arrow">▼</span></button>
+          <div class="faq-a"><p>نعم، الشحن متوفر لجميع الولايات.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span class="q-icon">3</span> هل الدفع عند الاستلام متاح؟ <span class="arrow">▼</span></button>
+          <div class="faq-a"><p>نعم، الدفع عند الاستلام متاح عند استلام الطلب.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span class="q-icon">4</span> هل توجد ضمانات للاسترجاع؟ <span class="arrow">▼</span></button>
+          <div class="faq-a"><p>نعم، يمكن إرجاع المنتج إذا لم يكن أصليًا أو إذا لم يرضَ الزبون عنه وفق شروط الإرجاع.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span class="q-icon">5</span> ما الفرق بين هذا المنتج والمنتجات المنافسة؟ <span class="arrow">▼</span></button>
+          <div class="faq-a"><p>منتجنا يتميز بأنه شيلاجيت أصلي ونقي مقارنة ببعض المنتجات الأخرى التي قد تكون مقلدة أو أقل جودة، مع ضمان الجودة ونتائج أفضل عند الاستخدام المنتظم.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ═══ 5. CONTACT ═══ -->
+  <section id="contact" style="padding:70px 0;">
+    <div class="container">
+      <div class="text-center reveal" style="margin-bottom:40px;">
+        <div class="contact-ornament"></div>
+        <h2 class="h2 contact-heading">تواصل معنا</h2>
+      </div>
+      <div class="contact-wrapper">
+        <div class="contact-info">
+          <a href="tel:0555027237" class="contact-card">
+            <span class="contact-circle">📞</span>
+            <span class="contact-label">اتصل بنا</span>
+            <span class="contact-value">0555027237</span>
+          </a>
+          <a href="mailto:taibabdou193@gmail.com" class="contact-card">
+            <span class="contact-circle">✉️</span>
+            <span class="contact-label">راسلنا</span>
+            <span class="contact-value">taibabdou193@gmail.com</span>
+          </a>
+        </div>
+        <div class="contact-divider"></div>
+        <div class="contact-logo-wrap">
+          <div class="contact-logo-glow"></div>
+          <div class="contact-logo">
+            <img src="logo.png" alt="شيلاجيت">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Order Summary Modal ═══ -->
+  <div id="checkoutModal">
+    <div class="modal-overlay" onclick="closeModal()"></div>
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-body">
+        <div class="modal-product">
+          <img src="shilajit-1.jpeg" alt="شيلاجيت">
+          <div>
+            <h3>ياكلة شيلاجيت الأصلية</h3>
+            <p class="modal-desc">شيلاجيت الهمالايا الخام • 100 جرام</p>
+            <div class="modal-price">3,500 <small>د.ج</small></div>
+          </div>
+        </div>
+        <div class="modal-summary" id="modalSummary">
+          <div class="summary-row"><span>المنتج</span><span>شيلاجيت 100g</span></div>
+          <div class="summary-row"><span>السعر</span><span>3,500 د.ج</span></div>
+          <div class="summary-row"><span>الكمية</span><span id="modalQty">1</span></div>
+          <div class="summary-row total"><span>المجموع</span><span id="modalTotal">3,500 د.ج</span></div>
+        </div>
+        <form class="modal-form" id="modalForm">
+          <input type="text" name="name" placeholder="الاسم الكامل" required>
+          <input type="tel" name="phone" placeholder="رقم الهاتف" required>
+          <select name="wilaya" id="modalWilaya" required>
+            <option value="" disabled selected>الولاية</option>
+          </select>
+          <select name="municipality" id="modalMunicipality" required disabled>
+            <option value="" disabled selected>اختر الولاية أولاً</option>
+          </select>
+          <select name="delivery" required>
+            <option value="" disabled selected>نوع التوصيل</option>
+            <option value="office">توصيل للمكتب</option>
+            <option value="home">توصيل للمنزل</option>
+          </select>
+          <div class="qty-wrap">
+            <button type="button" onclick="modalQtyChange(-1)">−</button>
+            <input type="number" name="qty" id="modalQtyInput" value="1" min="1" max="5" readonly>
+            <button type="button" onclick="modalQtyChange(1)">+</button>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:15px 30px;font-size:16px;">تأكيد الطلب ✓</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    #checkoutModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:9999; align-items:center; justify-content:center; }
+    #checkoutModal.active { display:flex; }
+    .modal-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.7); }
+    .modal-content { position:relative; background:var(--bg-card); border-radius:20px; max-width:480px; width:92%; max-height:90vh; overflow-y:auto; padding:32px 24px; z-index:2; direction:rtl; }
+    .modal-close { position:absolute; top:12px; left:12px; background:none; border:none; color:var(--text-secondary); font-size:22px; cursor:pointer; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+    .modal-close:hover { background:rgba(255,255,255,0.08); }
+    .modal-body { display:flex; flex-direction:column; gap:20px; }
+    .modal-product { display:flex; gap:16px; align-items:center; background:var(--bg); border-radius:12px; padding:16px; }
+    .modal-product img { width:80px; height:80px; border-radius:10px; object-fit:cover; }
+    .modal-product h3 { margin:0 0 4px; font-size:18px; }
+    .modal-desc { margin:0 0 6px; font-size:13px; color:var(--text-secondary); }
+    .modal-price { font-size:20px; font-weight:700; color:var(--accent); }
+    .modal-price small { font-size:13px; font-weight:400; }
+    .modal-summary { background:var(--bg); border-radius:12px; padding:14px 18px; }
+    .summary-row { display:flex; justify-content:space-between; padding:6px 0; font-size:14px; }
+    .summary-row.total { border-top:1px solid var(--border); margin-top:6px; padding-top:12px; font-weight:700; font-size:16px; color:var(--primary); }
+    .modal-form { display:flex; flex-direction:column; gap:12px; }
+    .modal-form input,.modal-form select { width:100%; padding:14px 18px; border-radius:10px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-family:var(--font); font-size:14px; text-align:right; outline:none; appearance:none; box-sizing:border-box; }
+    .modal-form .qty-wrap { display:flex; }
+    .modal-form .qty-wrap button { width:48px; height:48px; font-size:20px; }
+    .modal-form .qty-wrap input { flex:1; height:48px; text-align:center; }
+    @media(max-width:600px){ .modal-content { padding:24px 18px; } .modal-product img { width:64px; height:64px; } }
+  </style>
+
+  <!-- ═══ Sticky CTA ═══ -->
+  <div id="sticky-bar">
+    <div class="info">
+      <div class="label">شيلاجيت 100g</div>
+      <div class="price">3,500 د.ج</div>
+    </div>
+    <a href="#pageForm" class="btn btn-primary">اطلب الآن ←</a>
+  </div>
+
+  <script>
+    (function() {
+      var header = document.getElementById('header');
+      window.addEventListener('scroll', function() {
+        header.classList.toggle('scrolled', window.scrollY > 60);
+      });
+      var toggle = document.getElementById('menuToggle');
+      var navLinks = document.getElementById('navLinks');
+      toggle.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navLinks.classList.toggle('open');
+      });
+      navLinks.querySelectorAll('a').forEach(function(l) {
+        l.addEventListener('click', function() {
+          toggle.classList.remove('active');
+          navLinks.classList.remove('open');
+        });
+      });
+      var sticky = document.getElementById('sticky-bar');
+      window.addEventListener('scroll', function() {
+        sticky.classList.toggle('show', window.scrollY > window.innerHeight * 0.55);
+      });
+      document.querySelectorAll('.faq-q').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          this.parentElement.classList.toggle('open');
+        });
+      });
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) { e.target.classList.add('show'); }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+      /* ── Cascading Wilaya / Municipality (Modal) ── */
+      var citiesData = [];
+      var modalWilaya = document.getElementById('modalWilaya');
+      var modalMun = document.getElementById('modalMunicipality');
+
+      function populateModalMunicipalities(wilayaName) {
+        modalMun.innerHTML = '<option value="" disabled selected>البلدية</option>';
+        modalMun.disabled = true;
+        if (!wilayaName) { return; }
+        var code = '';
+        citiesData.some(function(c) { if (c.wilaya_name === wilayaName) { code = c.wilaya_code; return true; } });
+        if (!code) return;
+        var filtered = citiesData.filter(function(c) { return c.wilaya_code === code; });
+        filtered.sort(function(a,b) { return a.commune_name.localeCompare(b.commune_name, 'ar'); });
+        filtered.forEach(function(c) {
+          var opt = document.createElement('option');
+          opt.value = c.commune_name;
+          opt.textContent = c.commune_name;
+          modalMun.appendChild(opt);
+        });
+        modalMun.disabled = false;
+      }
+
+      function loadWilayas(targetSelect) {
+        var seen = {};
+        citiesData.forEach(function(c) {
+          if (!seen[c.wilaya_code]) {
+            seen[c.wilaya_code] = true;
+            var opt = document.createElement('option');
+            opt.value = c.wilaya_name;
+            opt.textContent = c.wilaya_code + ' - ' + c.wilaya_name;
+            targetSelect.appendChild(opt);
+          }
+        });
+      }
+
+      function initCascading() {
+        var tryLoad = function(url) {
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', url, true);
+          xhr.onload = function() {
+            if (xhr.status === 200) {
+              citiesData = JSON.parse(xhr.responseText);
+              loadWilayas(modalWilaya);
+            } else if (url.indexOf('algeria_cities.json') !== -1) {
+              tryLoad('https://raw.githubusercontent.com/othmanus/algeria-cities/master/json/ar/algeria_cities.json');
+            }
+          };
+          xhr.onerror = function() {
+            if (url.indexOf('algeria_cities.json') !== -1) {
+              tryLoad('https://raw.githubusercontent.com/othmanus/algeria-cities/master/json/ar/algeria_cities.json');
+            }
+          };
+          xhr.send();
+        };
+        tryLoad('algeria_cities.json');
+      }
+
+      /* ── Page form cascading ── */
+      var pageWilaya = document.getElementById('pageWilaya');
+      var pageMun = document.getElementById('pageMunicipality');
+
+      function populatePageMunicipalities(wilayaName) {
+        pageMun.innerHTML = '<option value="" disabled selected>البلدية</option>';
+        pageMun.disabled = true;
+        if (!wilayaName) { return; }
+        var code = '';
+        citiesData.some(function(c) { if (c.wilaya_name === wilayaName) { code = c.wilaya_code; return true; } });
+        if (!code) return;
+        var filtered = citiesData.filter(function(c) { return c.wilaya_code === code; });
+        filtered.sort(function(a,b) { return a.commune_name.localeCompare(b.commune_name, 'ar'); });
+        filtered.forEach(function(c) {
+          var opt = document.createElement('option');
+          opt.value = c.commune_name;
+          opt.textContent = c.commune_name;
+          pageMun.appendChild(opt);
+        });
+        pageMun.disabled = false;
+      }
+
+      window.pageQtyChange = function(delta) {
+        var input = document.getElementById('pageQtyInput');
+        var v = parseInt(input.value) + delta;
+        if (v < 1) v = 1;
+        if (v > 5) v = 5;
+        input.value = v;
+      };
+
+      modalWilaya.addEventListener('change', function() {
+        populateModalMunicipalities(this.value);
+      });
+
+      pageWilaya.addEventListener('change', function() {
+        populatePageMunicipalities(this.value);
+      });
+
+      /* populate both modal and page wilaya on load */
+      var _initOrig = initCascading;
+      initCascading = function() {
+        _initOrig();
+        var check = setInterval(function() {
+          if (citiesData.length > 0) {
+            loadWilayas(pageWilaya);
+            clearInterval(check);
+          }
+        }, 100);
+      };
+      initCascading();
+
+      /* ── Modal Functions ── */
+      function openCheckout() {
+        document.getElementById('checkoutModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal() {
+        document.getElementById('checkoutModal').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+      window.modalQtyChange = function(delta) {
+        var input = document.getElementById('modalQtyInput');
+        var v = parseInt(input.value) + delta;
+        if (v < 1) v = 1;
+        if (v > 5) v = 5;
+        input.value = v;
+        document.getElementById('modalQty').textContent = v;
+        document.getElementById('modalTotal').textContent = (v * 3500).toLocaleString() + ' د.ج';
+      }
+
+      /* ── Google Sheets submit (Modal) ── */
+      var SHEET_URL = 'https://script.google.com/macros/s/AKfycbz1kDo4_ZSqdkMLm3NoLgoz-_Y7-TPu7KSb8UMcxWP1R4skG2i0-r2Cx7lgIQejLl6IEA/exec';
+
+      (function() {
+        var iframe = document.createElement('iframe');
+        iframe.name = 'hidden_iframe';
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+
+        var form = document.getElementById('modalForm');
+        var confirmView = document.createElement('div');
+        confirmView.id = 'confirmView';
+        confirmView.style.display = 'none';
+        form.parentNode.insertBefore(confirmView, form.nextSibling);
+
+        function submitToSheet(data) {
+          var t = document.createElement('textarea');
+          t.name = 'name'; t.value = data.name; form.appendChild(t);
+          t = document.createElement('textarea');
+          t.name = 'phone'; t.value = data.phone; form.appendChild(t);
+          t = document.createElement('textarea');
+          t.name = 'wilaya'; t.value = data.wilaya; form.appendChild(t);
+          t = document.createElement('textarea');
+          t.name = 'municipality'; t.value = data.municipality; form.appendChild(t);
+          t = document.createElement('textarea');
+          t.name = 'delivery'; t.value = data.delivery; form.appendChild(t);
+          t = document.createElement('textarea');
+          t.name = 'qty'; t.value = data.qty; form.appendChild(t);
+          form.action = SHEET_URL;
+          form.method = 'POST';
+          form.target = 'hidden_iframe';
+          form.submit();
+        }
+
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          var fd = new FormData(form);
+          var data = {};
+          fd.forEach(function(v, k) { data[k] = v; });
+          if (!data.name || !data.phone || !data.wilaya || !data.municipality || !data.delivery) return;
+
+          var qty = parseInt(data.qty) || 1;
+          var total = (qty * 3500).toLocaleString() + ' د.ج';
+          var d = data.delivery === 'office' ? 'توصيل للمكتب' : data.delivery === 'home' ? 'توصيل للمنزل' : data.delivery;
+
+          confirmView.innerHTML = '' +
+            '<h3 style="text-align:center;margin:0 0 16px;color:var(--primary);">📋 تأكيد الطلب</h3>' +
+            '<div style="background:var(--bg);border-radius:12px;padding:16px 18px;font-size:14px;">' +
+              Object.entries({الاسم:data.name,الهاتف:data.phone,الولاية:data.wilaya,البلدية:data.municipality,التوصيل:d,الكمية:qty}).map(function(e){return'<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:var(--text-secondary);">'+e[0]+'</span><span style="font-weight:600;">'+e[1]+'</span></div>'}).join('') +
+              '<div style="display:flex;justify-content:space-between;padding:8px 0 0;margin-top:8px;border-top:1px solid var(--border);font-size:18px;font-weight:700;color:var(--primary);"><span>المجموع</span><span>'+total+'</span></div>' +
+            '</div>' +
+            '<div style="display:flex;gap:10px;margin-top:16px;">' +
+              '<button type="button" onclick="document.getElementById(\'confirmView\').style.display=\'none\';document.getElementById(\'modalForm\').style.display=\'\'" style="flex:1;padding:14px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:15px;cursor:pointer;">تعديل</button>' +
+              '<button type="button" id="finalConfirmBtn" class="btn btn-primary" style="flex:1;justify-content:center;padding:14px;font-size:15px;">تأكيد ✓</button>' +
+            '</div>';
+          confirmView.style.display = 'block';
+          form.style.display = 'none';
+
+          document.getElementById('finalConfirmBtn').addEventListener('click', function() {
+            submitToSheet(data);
+            confirmView.style.display = 'none';
+            form.style.display = '';
+            var originalFormHTML = form.innerHTML;
+            form.innerHTML = '<div style="text-align:center;padding:32px 24px;background:var(--grad-accent);border-radius:16px;color:#0a0f0b;font-weight:900;font-size:24px;box-shadow:0 8px 32px rgba(212,160,78,0.3);animation:pulse 1.5s infinite;">📞 ابق هاتفك مشغّل<br><span style="font-size:16px;font-weight:600;display:block;margin-top:8px;color:#1a1f1b;">فريقنا سيتصل بك لتأكيد الطلب</span></div><style>@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}</style>';
+            setTimeout(function() {
+              form.innerHTML = originalFormHTML;
+              document.getElementById('modalQty').textContent = '1';
+              document.getElementById('modalTotal').textContent = '3,500 د.ج';
+              document.getElementById('modalQtyInput').value = '1';
+              closeModal();
+            }, 5000);
+          });
+        });
+
+        /* ── Page form submit ── */
+        var pageForm = document.getElementById('pageForm');
+        if (pageForm) {
+          var pageConfirm = document.createElement('div');
+          pageConfirm.id = 'pageConfirm';
+          pageConfirm.style.display = 'none';
+          pageForm.parentNode.insertBefore(pageConfirm, pageForm.nextSibling);
+
+          pageForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var fd = new FormData(pageForm);
+            var data = {};
+            fd.forEach(function(v, k) { data[k] = v; });
+            if (!data.name || !data.phone || !data.wilaya || !data.municipality || !data.delivery) return;
+
+            var qty = parseInt(data.qty) || 1;
+            var total = (qty * 3500).toLocaleString() + ' د.ج';
+            var d = data.delivery === 'office' ? 'توصيل للمكتب' : data.delivery === 'home' ? 'توصيل للمنزل' : data.delivery;
+
+            pageConfirm.innerHTML = '' +
+              '<h3 style="text-align:center;margin:0 0 16px;color:var(--primary);font-size:18px;">📋 تأكيد الطلب</h3>' +
+              '<div style="background:var(--bg);border-radius:12px;padding:16px 18px;font-size:14px;">' +
+                (function() {
+                  var items = {الاسم:data.name,الهاتف:data.phone,الولاية:data.wilaya,البلدية:data.municipality,التوصيل:d,الكمية:qty};
+                  var html = '';
+                  for (var k in items) {
+                    html += '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:var(--text-secondary);">'+k+'</span><span style="font-weight:600;">'+items[k]+'</span></div>';
+                  }
+                  return html;
+                })() +
+                '<div style="display:flex;justify-content:space-between;padding:8px 0 0;margin-top:8px;border-top:1px solid var(--border);font-size:18px;font-weight:700;color:var(--primary);"><span>المجموع</span><span>'+total+'</span></div>' +
+              '</div>' +
+              '<div style="display:flex;gap:10px;margin-top:16px;">' +
+                '<button type="button" onclick="document.getElementById(\'pageConfirm\').style.display=\'none\';document.getElementById(\'pageForm\').style.display=\'\'" style="flex:1;padding:14px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:15px;cursor:pointer;">تعديل</button>' +
+                '<button type="button" id="pageFinalConfirm" class="btn btn-primary" style="flex:1;justify-content:center;padding:14px;font-size:15px;">تأكيد ✓</button>' +
+              '</div>';
+            pageConfirm.style.display = 'block';
+            pageForm.style.display = 'none';
+
+            document.getElementById('pageFinalConfirm').addEventListener('click', function() {
+              var t = document.createElement('textarea');
+              t.name = 'name'; t.value = data.name; pageForm.appendChild(t);
+              t = document.createElement('textarea');
+              t.name = 'phone'; t.value = data.phone; pageForm.appendChild(t);
+              t = document.createElement('textarea');
+              t.name = 'wilaya'; t.value = data.wilaya; pageForm.appendChild(t);
+              t = document.createElement('textarea');
+              t.name = 'municipality'; t.value = data.municipality; pageForm.appendChild(t);
+              t = document.createElement('textarea');
+              t.name = 'delivery'; t.value = data.delivery; pageForm.appendChild(t);
+              t = document.createElement('textarea');
+              t.name = 'qty'; t.value = data.qty; pageForm.appendChild(t);
+              pageForm.action = SHEET_URL;
+              pageForm.method = 'POST';
+              pageForm.target = 'hidden_iframe';
+              pageForm.submit();
+
+              pageConfirm.style.display = 'none';
+              pageForm.style.display = '';
+              var originalPageHTML = pageForm.innerHTML;
+              pageForm.innerHTML = '<div style="text-align:center;padding:32px 24px;background:var(--grad-accent);border-radius:16px;color:#0a0f0b;font-weight:900;font-size:24px;box-shadow:0 8px 32px rgba(212,160,78,0.3);animation:pulse 1.5s infinite;">📞 ابق هاتفك مشغّل<br><span style="font-size:16px;font-weight:600;display:block;margin-top:8px;color:#1a1f1b;">فريقنا سيتصل بك لتأكيد الطلب</span></div>';
+              setTimeout(function() {
+                pageForm.innerHTML = originalPageHTML;
+                document.getElementById('pageQtyInput').value = '1';
+              }, 5000);
+            });
+          });
+        }
+      })();
+    })();
+  </script>
+</body>
+</html>
+
+
+

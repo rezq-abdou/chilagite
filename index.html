@@ -599,7 +599,12 @@
       <div class="order-grid">
         <div class="reveal">
           <div style="max-width:480px;margin:0 auto;">
-            <div style="text-align:center;font-size:28px;font-weight:900;color:var(--accent);margin-bottom:16px;">3,500 <small style="font-size:16px;font-weight:400;">د.ج</small></div>
+            <div id="pagePriceArea" style="text-align:center;margin-bottom:16px;">
+              <div style="font-size:14px;color:var(--text-secondary);font-weight:600;">المنتج <span id="pageQtyLabel">1</span> × 3,500 د.ج</div>
+              <div id="pagePriceDisplay" style="font-size:14px;color:var(--text-muted);margin-top:2px;"></div>
+              <div id="pageDeliveryFee" style="font-size:14px;min-height:22px;margin-top:4px;"></div>
+              <div id="pageTotalDisplay" style="font-size:22px;font-weight:900;color:var(--accent);margin-top:6px;">3,500 <small style="font-size:14px;font-weight:400;color:var(--text-secondary);">د.ج</small></div>
+            </div>
             <form class="order-form" id="pageForm">
                 <input type="text" name="name" placeholder="الاسم الكامل" required>
                 <input type="tel" name="phone" placeholder="رقم الهاتف" required>
@@ -609,7 +614,7 @@
                 <select name="municipality" id="pageMunicipality" required disabled>
                   <option value="" disabled selected>اختر الولاية أولاً</option>
                 </select>
-                <select name="delivery" required>
+                <select name="delivery" id="pageDelivery" required>
                   <option value="" disabled selected>نوع التوصيل</option>
                   <option value="office">توصيل للمكتب</option>
                   <option value="home">توصيل للمنزل</option>
@@ -804,7 +809,8 @@
           <div class="summary-row"><span>المنتج</span><span>شيلاجيت 100g</span></div>
           <div class="summary-row"><span>السعر</span><span>3,500 د.ج</span></div>
           <div class="summary-row"><span>الكمية</span><span id="modalQty">1</span></div>
-          <div class="summary-row total"><span>المجموع</span><span id="modalTotal">3,500 د.ج</span></div>
+          <div class="summary-row"><span style="color:var(--text-secondary);font-size:13px;" id="modalDeliveryFee"></span></div>
+          <div class="summary-row total"><span>المجموع</span><span id="modalTotalDisplay"><span style="font-weight:700;">3,500 د.ج</span></span></div>
         </div>
         <form class="modal-form" id="modalForm">
           <input type="text" name="name" placeholder="الاسم الكامل" required>
@@ -815,11 +821,11 @@
           <select name="municipality" id="modalMunicipality" required disabled>
             <option value="" disabled selected>اختر الولاية أولاً</option>
           </select>
-          <select name="delivery" required>
-            <option value="" disabled selected>نوع التوصيل</option>
-            <option value="office">توصيل للمكتب</option>
-            <option value="home">توصيل للمنزل</option>
-          </select>
+          <select name="delivery" id="modalDelivery" required>
+                  <option value="" disabled selected>نوع التوصيل</option>
+                  <option value="office">توصيل للمكتب</option>
+                  <option value="home">توصيل للمنزل</option>
+                </select>
           <div class="qty-wrap">
             <button type="button" onclick="modalQtyChange(-1)">−</button>
             <input type="number" name="qty" id="modalQtyInput" value="1" min="1" max="5" readonly>
@@ -899,6 +905,56 @@
       }, { threshold: 0.1 });
       document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
 
+      /* ── Delivery prices per wilaya (office / home) ── */
+      var deliveryPrices = {
+        'أدرار':{office:750,home:1100}, 'الشلف':{office:400,home:680}, 'الأغواط':{office:500,home:800},
+        'أم البواقي':{office:400,home:680}, 'باتنة':{office:400,home:700}, 'بجاية':{office:400,home:700},
+        'بسكرة':{office:500,home:800}, 'بشار':{office:700,home:1000}, 'البليدة':{office:350,home:500},
+        'البويرة':{office:400,home:600}, 'تمنراست':{office:1050,home:1500}, 'تبسة':{office:450,home:720},
+        'تلمسان':{office:400,home:700}, 'تيارت':{office:400,home:700}, 'تيزي وزو':{office:400,home:600},
+        'الجزائر':{office:300,home:400}, 'الجلفة':{office:500,home:800}, 'جيجل':{office:400,home:700},
+        'سطيف':{office:400,home:680}, 'سعيدة':{office:450,home:730}, 'سكيكدة':{office:400,home:700},
+        'سيدي بلعباس':{office:400,home:700}, 'عنابة':{office:450,home:700}, 'قالمة':{office:400,home:700},
+        'قسنطينة':{office:400,home:680}, 'المدية':{office:400,home:600}, 'مستغانم':{office:400,home:700},
+        'المسيلة':{office:400,home:700}, 'معسكر':{office:400,home:700}, 'ورقلة':{office:550,home:900},
+        'وهران':{office:400,home:580}, 'البيض':{office:700,home:970}, 'إليزي':{office:1050,home:1500},
+        'برج بوعريريج':{office:400,home:680}, 'بومرداس':{office:350,home:530}, 'الطارف':{office:450,home:730},
+        'تندوف':{office:750,home:1100}, 'تسمسيلت':{office:400,home:700}, 'الوادي':{office:550,home:900},
+        'خنشلة':{office:400,home:700}, 'سوق أهراس':{office:450,home:730}, 'تيبازة':{office:350,home:530},
+        'ميلة':{office:400,home:700}, 'عين الدفلى':{office:400,home:700}, 'النعامة':{office:550,home:930},
+        'عين تيموشنت':{office:400,home:700}, 'غرداية':{office:500,home:850}, 'غليزان':{office:400,home:700},
+        'تيميمون':{office:750,home:1100}, 'أولاد جلال':{office:500,home:800}, 'بني عباس':{office:700,home:1000},
+        'عين صالح':{office:950,home:1400}, 'تقرت':{office:550,home:930}, 'جانت':{office:1500,home:2100},
+        'المغير':{office:550,home:930}, 'المنيعة':{office:500,home:850}
+      };
+
+      function getDeliveryFee(wilaya, mun, type) {
+        if (!wilaya || !type) return null;
+        if ((wilaya === 'بومرداس' && mun === 'سي مصطفى') || (wilaya === 'الجزائر' && mun === 'رغاية')) return 0;
+        var p = deliveryPrices[wilaya];
+        return p ? (type === 'home' ? p.home : p.office) : null;
+      }
+
+      function updatePriceDisplay(prefix, wilaya, mun, delivery, qty) {
+        var fee = getDeliveryFee(wilaya, mun, delivery);
+        var feeEl = document.getElementById(prefix + 'DeliveryFee');
+        var totalEl = document.getElementById(prefix + 'TotalDisplay');
+        var productEl = document.getElementById(prefix + 'PriceDisplay');
+        if (fee === null) {
+          if (feeEl) feeEl.textContent = '';
+          if (totalEl) totalEl.textContent = '';
+          return;
+        }
+        var product = qty * 3500;
+        var grand = product + fee;
+        if (feeEl) {
+          if (fee === 0) feeEl.innerHTML = '<span style="font-size:14px;color:#2ecc71;font-weight:700;">🚚 توصيل مجاني ✓</span>';
+          else feeEl.innerHTML = '<span style="font-size:14px;color:var(--text-secondary);">+ ' + fee.toLocaleString() + ' د.ج <small style="font-size:11px;">توصيل</small></span>';
+        }
+        if (totalEl) totalEl.innerHTML = '<span style="font-size:22px;font-weight:900;color:var(--primary);">المجموع: ' + grand.toLocaleString() + ' <small style="font-size:13px;font-weight:400;color:var(--text-secondary);">د.ج</small></span>';
+        if (productEl) productEl.innerHTML = 'المنتج: ' + product.toLocaleString() + ' <small style="font-size:13px;font-weight:400;color:var(--text-muted);">د.ج</small>';
+      }
+
       /* ── Cascading Wilaya / Municipality (Modal) ── */
       var citiesData = [];
       var modalWilaya = document.getElementById('modalWilaya');
@@ -925,7 +981,7 @@
       function loadWilayas(targetSelect) {
         var seen = {};
         citiesData.forEach(function(c) {
-          if (!seen[c.wilaya_code]) {
+          if (!seen[c.wilaya_code] && deliveryPrices[c.wilaya_name]) {
             seen[c.wilaya_code] = true;
             var opt = document.createElement('option');
             opt.value = c.wilaya_name;
@@ -985,14 +1041,52 @@
         if (v < 1) v = 1;
         if (v > 5) v = 5;
         input.value = v;
+        document.getElementById('pageQtyLabel').textContent = v;
+        var fv = getFormValues('page');
+        updatePriceDisplay('page', fv.wilaya, fv.mun, fv.delivery, v);
       };
+
+      function getFormValues(prefix) {
+        var w = document.getElementById(prefix + 'Wilaya');
+        var m = document.getElementById(prefix + 'Municipality');
+        var d = document.getElementById(prefix + 'Delivery');
+        var q = document.getElementById(prefix + 'QtyInput');
+        return {wilaya: w ? w.value : '', mun: m ? m.value : '', delivery: d ? d.value : '', qty: q ? parseInt(q.value)||1 : 1};
+      }
 
       modalWilaya.addEventListener('change', function() {
         populateModalMunicipalities(this.value);
+        var v = getFormValues('modal');
+        updatePriceDisplay('modal', v.wilaya, v.mun, v.delivery, v.qty);
       });
 
       pageWilaya.addEventListener('change', function() {
         populatePageMunicipalities(this.value);
+        var v = getFormValues('page');
+        updatePriceDisplay('page', v.wilaya, v.mun, v.delivery, v.qty);
+      });
+
+      document.querySelectorAll('#modalForm select[name=\"delivery\"]').forEach(function(el) {
+        el.addEventListener('change', function() {
+          var v = getFormValues('modal');
+          updatePriceDisplay('modal', v.wilaya, v.mun, this.value, v.qty);
+        });
+      });
+      document.querySelectorAll('#pageForm select[name=\"delivery\"]').forEach(function(el) {
+        el.addEventListener('change', function() {
+          var v = getFormValues('page');
+          updatePriceDisplay('page', v.wilaya, v.mun, this.value, v.qty);
+        });
+      });
+
+      /* ── Price update on municipality change (for free shipping) ── */
+      document.getElementById('modalMunicipality').addEventListener('change', function() {
+        var v = getFormValues('modal');
+        updatePriceDisplay('modal', v.wilaya, this.value, v.delivery, v.qty);
+      });
+      document.getElementById('pageMunicipality').addEventListener('change', function() {
+        var v = getFormValues('page');
+        updatePriceDisplay('page', v.wilaya, this.value, v.delivery, v.qty);
       });
 
       /* populate both modal and page wilaya on load */
@@ -1024,13 +1118,17 @@
         if (v > 5) v = 5;
         input.value = v;
         document.getElementById('modalQty').textContent = v;
-        document.getElementById('modalTotal').textContent = (v * 3500).toLocaleString() + ' د.ج';
+        var fv = getFormValues('modal');
+        updatePriceDisplay('modal', fv.wilaya, fv.mun, fv.delivery, v);
       }
 
       /* ── Telegram notification ── */
       function sendTelegram(name, phone, wilaya, mun, delivery, qty) {
         try {
-          var total = parseInt(qty) * 3500;
+          var fee = getDeliveryFee(wilaya, mun, delivery === 'توصيل للمكتب' ? 'office' : delivery === 'توصيل للمنزل' ? 'home' : '');
+          var deliveryPriceText = fee === null ? '' : fee === 0 ? '🚚 توصيل مجاني' : '🚚 التوصيل: +' + fee.toLocaleString() + ' د.ج';
+          var productTotal = parseInt(qty) * 3500;
+          var grandTotal = fee !== null ? productTotal + fee : productTotal;
           var msg = '<b>🆕 طلب جديد!</b>\n' +
             '━━━━━━━━━━━━━\n' +
             '👤 <b>الاسم:</b> ' + name + '\n' +
@@ -1039,7 +1137,9 @@
             '🏘️ <b>البلدية:</b> ' + mun + '\n' +
             '🚚 <b>التوصيل:</b> ' + delivery + '\n' +
             '📦 <b>الكمية:</b> ' + qty + '\n' +
-            '💰 <b>المجموع:</b> ' + total.toLocaleString() + ' د.ج\n' +
+            '💰 <b>المنتج:</b> ' + productTotal.toLocaleString() + ' د.ج\n' +
+            (deliveryPriceText ? deliveryPriceText + '\n' : '') +
+            '💵 <b>المجموع الكلي:</b> ' + grandTotal.toLocaleString() + ' د.ج\n' +
             '🕐 <b>التاريخ:</b> ' + (function(){var d=new Date();var h=d.getHours();var m=d.getMinutes();var ampm=h>=12?'م':'ص';h=h%12||12;m=m<10?'0'+m:m;return d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear()+' '+h+':'+m+' '+ampm;})() + '\n' +
             '━━━━━━━━━━━━━';
           var img = new Image();
@@ -1062,7 +1162,7 @@
         confirmView.style.display = 'none';
         form.parentNode.insertBefore(confirmView, form.nextSibling);
 
-        function submitToSheet(data) {
+        function submitToSheet(data, fee, grandTotal) {
           var t = document.createElement('textarea');
           t.name = 'name'; t.value = data.name; form.appendChild(t);
           t = document.createElement('textarea');
@@ -1075,6 +1175,10 @@
           t.name = 'delivery'; t.value = data.delivery; form.appendChild(t);
           t = document.createElement('textarea');
           t.name = 'qty'; t.value = data.qty; form.appendChild(t);
+          t = document.createElement('textarea');
+          t.name = 'delivery_fee'; t.value = fee !== null ? fee : ''; form.appendChild(t);
+          t = document.createElement('textarea');
+          t.name = 'total'; t.value = grandTotal; form.appendChild(t);
           form.action = SHEET_URL;
           form.method = 'POST';
           form.target = 'hidden_iframe';
@@ -1089,14 +1193,18 @@
           if (!data.name || !data.phone || !data.wilaya || !data.municipality || !data.delivery) return;
 
           var qty = parseInt(data.qty) || 1;
-          var total = (qty * 3500).toLocaleString() + ' د.ج';
+          var fee = getDeliveryFee(data.wilaya, data.municipality, data.delivery);
+          var feeText = fee === null ? '' : fee === 0 ? '🚚 توصيل مجاني' : '+ ' + fee.toLocaleString() + ' د.ج';
+          var productTotal = qty * 3500;
+          var grandTotal = fee !== null ? productTotal + fee : productTotal;
           var d = data.delivery === 'office' ? 'توصيل للمكتب' : data.delivery === 'home' ? 'توصيل للمنزل' : data.delivery;
 
           confirmView.innerHTML = '' +
             '<h3 style="text-align:center;margin:0 0 16px;color:var(--primary);">📋 تأكيد الطلب</h3>' +
             '<div style="background:var(--bg);border-radius:12px;padding:16px 18px;font-size:14px;">' +
               Object.entries({الاسم:data.name,الهاتف:data.phone,الولاية:data.wilaya,البلدية:data.municipality,التوصيل:d,الكمية:qty}).map(function(e){return'<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:var(--text-secondary);">'+e[0]+'</span><span style="font-weight:600;">'+e[1]+'</span></div>'}).join('') +
-              '<div style="display:flex;justify-content:space-between;padding:8px 0 0;margin-top:8px;border-top:1px solid var(--border);font-size:18px;font-weight:700;color:var(--primary);"><span>المجموع</span><span>'+total+'</span></div>' +
+              (feeText ? '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:var(--text-secondary);">التوصيل</span><span style="font-weight:600;">'+feeText+'</span></div>' : '') +
+              '<div style="display:flex;justify-content:space-between;padding:8px 0 0;margin-top:8px;border-top:1px solid var(--border);font-size:18px;font-weight:700;color:var(--primary);"><span>المجموع الكلي</span><span>'+grandTotal.toLocaleString()+' د.ج</span></div>' +
             '</div>' +
             '<div style="display:flex;gap:10px;margin-top:16px;">' +
               '<button type="button" onclick="document.getElementById(\'confirmView\').style.display=\'none\';document.getElementById(\'modalForm\').style.display=\'\'" style="flex:1;padding:14px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:15px;cursor:pointer;">تعديل</button>' +
@@ -1106,8 +1214,8 @@
           form.style.display = 'none';
 
           document.getElementById('finalConfirmBtn').addEventListener('click', function() {
-            submitToSheet(data);
-            try { fbq('track', 'Purchase', {value: qty * 3500, currency: 'DZD'}); } catch(e){};
+            submitToSheet(data, fee, grandTotal);
+            try { fbq('track', 'Purchase', {value: grandTotal, currency: 'DZD'}); } catch(e){};
             sendTelegram(data.name, data.phone, data.wilaya, data.municipality, d, qty);
             confirmView.style.display = 'none';
             form.style.display = '';
@@ -1116,8 +1224,11 @@
             setTimeout(function() {
               form.innerHTML = originalFormHTML;
               document.getElementById('modalQty').textContent = '1';
-              document.getElementById('modalTotal').textContent = '3,500 د.ج';
               document.getElementById('modalQtyInput').value = '1';
+              var dFee = document.getElementById('modalDeliveryFee');
+              var dTot = document.getElementById('modalTotalDisplay');
+              if (dFee) dFee.textContent = '';
+              if (dTot) dTot.innerHTML = '<span style="font-weight:700;">3,500 د.ج</span>';
               closeModal();
             }, 5000);
           });
@@ -1139,7 +1250,10 @@
             if (!data.name || !data.phone || !data.wilaya || !data.municipality || !data.delivery) return;
 
             var qty = parseInt(data.qty) || 1;
-            var total = (qty * 3500).toLocaleString() + ' د.ج';
+            var fee = getDeliveryFee(data.wilaya, data.municipality, data.delivery);
+            var feeText = fee === null ? '' : fee === 0 ? '🚚 توصيل مجاني' : '+ ' + fee.toLocaleString() + ' د.ج';
+            var productTotal = qty * 3500;
+            var grandTotal = fee !== null ? productTotal + fee : productTotal;
             var d = data.delivery === 'office' ? 'توصيل للمكتب' : data.delivery === 'home' ? 'توصيل للمنزل' : data.delivery;
 
             pageConfirm.innerHTML = '' +
@@ -1153,7 +1267,8 @@
                   }
                   return html;
                 })() +
-                '<div style="display:flex;justify-content:space-between;padding:8px 0 0;margin-top:8px;border-top:1px solid var(--border);font-size:18px;font-weight:700;color:var(--primary);"><span>المجموع</span><span>'+total+'</span></div>' +
+                (feeText ? '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:var(--text-secondary);">التوصيل</span><span style="font-weight:600;">'+feeText+'</span></div>' : '') +
+                '<div style="display:flex;justify-content:space-between;padding:8px 0 0;margin-top:8px;border-top:1px solid var(--border);font-size:18px;font-weight:700;color:var(--primary);"><span>المجموع الكلي</span><span>'+grandTotal.toLocaleString()+' د.ج</span></div>' +
               '</div>' +
               '<div style="display:flex;gap:10px;margin-top:16px;">' +
                 '<button type="button" onclick="document.getElementById(\'pageConfirm\').style.display=\'none\';document.getElementById(\'pageForm\').style.display=\'\'" style="flex:1;padding:14px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:15px;cursor:pointer;">تعديل</button>' +
@@ -1175,11 +1290,15 @@
               t.name = 'delivery'; t.value = data.delivery; pageForm.appendChild(t);
               t = document.createElement('textarea');
               t.name = 'qty'; t.value = data.qty; pageForm.appendChild(t);
+              t = document.createElement('textarea');
+              t.name = 'delivery_fee'; t.value = fee !== null ? fee : ''; pageForm.appendChild(t);
+              t = document.createElement('textarea');
+              t.name = 'total'; t.value = grandTotal; pageForm.appendChild(t);
               pageForm.action = SHEET_URL;
               pageForm.method = 'POST';
               pageForm.target = 'hidden_iframe';
               pageForm.submit();
-              try { fbq('track', 'Purchase', {value: qty * 3500, currency: 'DZD'}); } catch(e){}
+              try { fbq('track', 'Purchase', {value: grandTotal, currency: 'DZD'}); } catch(e){}
               sendTelegram(data.name, data.phone, data.wilaya, data.municipality, d, qty);
 
               pageConfirm.style.display = 'none';
@@ -1189,6 +1308,7 @@
               setTimeout(function() {
                 pageForm.innerHTML = originalPageHTML;
                 document.getElementById('pageQtyInput').value = '1';
+                document.getElementById('pageQtyLabel').textContent = '1';
               }, 5000);
             });
           });

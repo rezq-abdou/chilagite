@@ -930,7 +930,8 @@
 
       function getDeliveryFee(wilaya, mun, type) {
         if (!wilaya || !type) return null;
-        if ((wilaya === 'بومرداس' && mun === 'سي مصطفى') || (wilaya === 'الجزائر' && mun === 'رغاية')) return 0;
+        if (wilaya === 'بومرداس' && mun === 'سي مصطفى') return 0;
+        if (wilaya === 'الجزائر' && mun === 'رغاية') return 0;
         var p = deliveryPrices[wilaya];
         return p ? (type === 'home' ? p.home : p.office) : null;
       }

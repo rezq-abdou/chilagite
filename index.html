@@ -1040,6 +1040,7 @@
             '🚚 <b>التوصيل:</b> ' + delivery + '\n' +
             '📦 <b>الكمية:</b> ' + qty + '\n' +
             '💰 <b>المجموع:</b> ' + total.toLocaleString() + ' د.ج\n' +
+            '🕐 <b>التاريخ:</b> ' + new Date().toLocaleString('ar-DZ') + '\n' +
             '━━━━━━━━━━━━━';
           var img = new Image();
           img.src = 'https://api.telegram.org/bot8974251895:AAHO12RU68DY7rLm1BIq2aPxwmbI0suVYTI/sendMessage?chat_id=5220136193&parse_mode=HTML&text=' + encodeURIComponent(msg);

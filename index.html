@@ -1027,6 +1027,27 @@
         document.getElementById('modalTotal').textContent = (v * 3500).toLocaleString() + ' د.ج';
       }
 
+      /* ── Telegram notification ── */
+      function sendTelegram(name, phone, wilaya, mun, delivery, qty) {
+        try {
+          var total = parseInt(qty) * 3500;
+          var msg = '<b>🆕 طلب جديد!</b>\n' +
+            '━━━━━━━━━━━━━\n' +
+            '👤 <b>الاسم:</b> ' + name + '\n' +
+            '📞 <b>الهاتف:</b> ' + phone + '\n' +
+            '📍 <b>الولاية:</b> ' + wilaya + '\n' +
+            '🏘️ <b>البلدية:</b> ' + mun + '\n' +
+            '🚚 <b>التوصيل:</b> ' + delivery + '\n' +
+            '📦 <b>الكمية:</b> ' + qty + '\n' +
+            '💰 <b>المجموع:</b> ' + total.toLocaleString() + ' د.ج\n' +
+            '━━━━━━━━━━━━━';
+          var payload = JSON.stringify({chat_id:'5220136193',text:msg,parse_mode:'HTML'});
+          fetch('https://api.telegram.org/bot8974251895:AAHO12RU68DY7rLm1BIq2aPxwmbI0suVYTI/sendMessage', {
+            method:'POST', headers:{'Content-Type':'application/json'}, body:payload
+          });
+        } catch(e){}
+      }
+
       /* ── Google Sheets submit (Modal) ── */
       var SHEET_URL = 'https://script.google.com/macros/s/AKfycbygS0xz-UyB99l5BnR6TZKMZsYNgrr54yuiu9eZ9Q5CMWiqkHzE0yNyTSHABD3hHp9R/exec';
 
@@ -1088,6 +1109,7 @@
           document.getElementById('finalConfirmBtn').addEventListener('click', function() {
             submitToSheet(data);
             try { fbq('track', 'Purchase', {value: qty * 3500, currency: 'DZD'}); } catch(e){};
+            sendTelegram(data.name, data.phone, data.wilaya, data.municipality, d, qty);
             confirmView.style.display = 'none';
             form.style.display = '';
             var originalFormHTML = form.innerHTML;
@@ -1159,6 +1181,7 @@
               pageForm.target = 'hidden_iframe';
               pageForm.submit();
               try { fbq('track', 'Purchase', {value: qty * 3500, currency: 'DZD'}); } catch(e){}
+              sendTelegram(data.name, data.phone, data.wilaya, data.municipality, d, qty);
 
               pageConfirm.style.display = 'none';
               pageForm.style.display = '';

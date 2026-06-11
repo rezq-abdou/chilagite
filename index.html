@@ -492,6 +492,22 @@
       .gallery-item .overlay h3 { font-size: 22px; }
     }
   </style>
+  <!-- Facebook Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1087281277108135');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1087281277108135&ev=PageView&noscript=1"
+  /></noscript>
 </head>
 <body>
 
@@ -1071,6 +1087,7 @@
 
           document.getElementById('finalConfirmBtn').addEventListener('click', function() {
             submitToSheet(data);
+            try { fbq('track', 'Purchase', {value: qty * 3500, currency: 'DZD'}); } catch(e){};
             confirmView.style.display = 'none';
             form.style.display = '';
             var originalFormHTML = form.innerHTML;
@@ -1141,6 +1158,7 @@
               pageForm.method = 'POST';
               pageForm.target = 'hidden_iframe';
               pageForm.submit();
+              try { fbq('track', 'Purchase', {value: qty * 3500, currency: 'DZD'}); } catch(e){}
 
               pageConfirm.style.display = 'none';
               pageForm.style.display = '';

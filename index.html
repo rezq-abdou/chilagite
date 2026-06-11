@@ -1041,10 +1041,8 @@
             '📦 <b>الكمية:</b> ' + qty + '\n' +
             '💰 <b>المجموع:</b> ' + total.toLocaleString() + ' د.ج\n' +
             '━━━━━━━━━━━━━';
-          var payload = JSON.stringify({chat_id:'5220136193',text:msg,parse_mode:'HTML'});
-          fetch('https://api.telegram.org/bot8974251895:AAHO12RU68DY7rLm1BIq2aPxwmbI0suVYTI/sendMessage', {
-            method:'POST', headers:{'Content-Type':'application/json'}, body:payload
-          });
+          var img = new Image();
+          img.src = 'https://api.telegram.org/bot8974251895:AAHO12RU68DY7rLm1BIq2aPxwmbI0suVYTI/sendMessage?chat_id=5220136193&parse_mode=HTML&text=' + encodeURIComponent(msg);
         } catch(e){}
       }
 

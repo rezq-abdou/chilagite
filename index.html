@@ -127,7 +127,7 @@
     .gallery-grid { display: flex; flex-direction: column; }
 
     .gallery-item {
-      position: relative; overflow: hidden; width: 100%; height: 100vh; height: 100svh;
+      position: relative; overflow: hidden; width: 100%; height: 100svh; contain: layout style paint;
     }
     .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .gallery-item .overlay {
@@ -591,7 +591,7 @@
   </section>
 
   <!-- ═══ 2. ORDER ═══ -->
-  <section id="order">
+  <section id="order" style="content-visibility:auto;contain-intrinsic-size:800px;">
     <div class="container">
       <div class="text-center reveal">
         <div style="display:inline-block;background:var(--grad-accent);color:#0a0f0b;font-weight:700;font-size:15px;padding:8px 22px;border-radius:60px;margin-top:-16px;margin-bottom:12px;">املأ معلوماتك وسنراسلك لتأكيد الطلب</div>
@@ -633,7 +633,7 @@
   </section>
 
   <!-- ═══ 3. FEATURES + INGREDIENTS ═══ -->
-  <section id="features">
+  <section id="features" style="content-visibility:auto;contain-intrinsic-size:1200px;">
     <div class="container">
       <div class="text-center reveal">
         <div class="label">المميزات والمكونات</div>
@@ -874,9 +874,11 @@
   <script>
     (function() {
       var header = document.getElementById('header');
+      var sticky = document.getElementById('sticky-bar');
       window.addEventListener('scroll', function() {
         header.classList.toggle('scrolled', window.scrollY > 60);
-      });
+        sticky.classList.toggle('show', window.scrollY > window.innerHeight * 0.55);
+      }, {passive: true});
       var toggle = document.getElementById('menuToggle');
       var navLinks = document.getElementById('navLinks');
       toggle.addEventListener('click', function() {
@@ -888,10 +890,6 @@
           toggle.classList.remove('active');
           navLinks.classList.remove('open');
         });
-      });
-      var sticky = document.getElementById('sticky-bar');
-      window.addEventListener('scroll', function() {
-        sticky.classList.toggle('show', window.scrollY > window.innerHeight * 0.55);
       });
       document.querySelectorAll('.faq-q').forEach(function(btn) {
         btn.addEventListener('click', function() {

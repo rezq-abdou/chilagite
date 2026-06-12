@@ -127,7 +127,7 @@
     .gallery-grid { display: flex; flex-direction: column; }
 
     .gallery-item {
-      position: relative; overflow: hidden; width: 100%; height: 100svh;
+      position: relative; overflow: hidden; width: 100%; height: 100vh; height: 100svh; flex-shrink: 0;
     }
     .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .gallery-item .overlay {
@@ -538,7 +538,7 @@
       </div>
       <div class="gallery-grid reveal">
         <div class="gallery-item">
-          <img src="hero_new.jpeg" alt="شيلاجيت طبيعي" loading="lazy">
+          <img src="hero_new.jpeg" alt="شيلاجيت طبيعي" fetchpriority="high" decoding="async">
           <div class="overlay">
 
             <h3>شيلاجيت الطبيعي الخام</h3>

@@ -1,22 +1,3 @@
-var TG_TOKEN = '8974251895:AAHO12RU68DY7rLm1BIq2aPxwmbI0suVYTI';
-var TG_CHAT_ID = '5220136193';
-
-function sendTelegram(text) {
-  try {
-    var payload = {
-      chat_id: TG_CHAT_ID,
-      text: text,
-      parse_mode: 'HTML'
-    };
-    var options = {
-      method: 'post',
-      payload: payload,
-      muteHttpExceptions: true
-    };
-    UrlFetchApp.fetch('https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage', options);
-  } catch(e) {}
-}
-
 function doPost(e) {
   try {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
@@ -46,19 +27,6 @@ function doPost(e) {
     });
 
     sheet.appendRow(row);
-
-    var total = parseInt(data.qty) * 3500;
-    var msg = '<b>🆕 طلب جديد!</b>\n' +
-      '━━━━━━━━━━━━━\n' +
-      '👤 <b>الاسم:</b> ' + data.name + '\n' +
-      '📞 <b>الهاتف:</b> ' + data.phone + '\n' +
-      '📍 <b>الولاية:</b> ' + data.wilaya + '\n' +
-      '🏘️ <b>البلدية:</b> ' + data.municipality + '\n' +
-      '🚚 <b>التوصيل:</b> ' + data.delivery + '\n' +
-      '📦 <b>الكمية:</b> ' + data.qty + '\n' +
-      '💰 <b>المجموع:</b> ' + total.toLocaleString() + ' د.ج\n' +
-      '━━━━━━━━━━━━━';
-    sendTelegram(msg);
 
     return ContentService
       .createTextOutput(JSON.stringify({ result: 'success' }))

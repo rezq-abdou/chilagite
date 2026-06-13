@@ -104,20 +104,107 @@
     .menu-toggle.active span:nth-child(2) { opacity: 0; }
     .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
+    /* ── 1. Hero ── */
+
     section { padding: 80px 0; }
     .text-center { text-align: center; }
     .text-center .p { margin: 0 auto 36px; }
 
-    /* ── Form elements shared ── */
-    .order-form { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+    /* ── 2. Gallery ── */
+    #gallery { background: linear-gradient(180deg, rgba(46, 139, 87, 0.02) 0%, transparent 100%); }
+
+    .gallery-headline-wrapper {
+      display: flex; align-items: center; justify-content: center; gap: 18px;
+    }
+    .gallery-headline {
+      font-size: 1.5rem; font-weight: 800; margin: 0;
+      background: linear-gradient(135deg, var(--accent), #f0c060);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 0.5px;
+    }
+
+    .gallery-grid { display: flex; flex-direction: column; }
+
+    .gallery-item {
+      position: relative; overflow: hidden; width: 100%; height: 100svh; content-visibility: auto; contain-intrinsic-size: 100svh; contain: paint;
+    }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-item .overlay {
+      position: absolute; inset: 0;
+      background: rgba(8,12,9,0.45);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 48px 40px;
+    }
+    .gallery-item .overlay .tag {
+      display: inline-block; width: fit-content; padding: 4px 14px;
+      background: rgba(212, 160, 78, 0.15); border: 1px solid rgba(212, 160, 78, 0.2);
+      border-radius: 60px; font-size: 10px; font-weight: 700; color: var(--accent);
+      letter-spacing: 1px; margin-bottom: 12px;
+    }
+    .gallery-item .overlay h3 {
+      font-size: clamp(24px, 5vw, 42px); font-weight: 900; line-height: 1.15;
+      margin-bottom: 8px; text-shadow: 0 2px 24px rgba(0,0,0,0.5);
+    }
+    .gallery-item .overlay p {
+      font-size: clamp(13px, 2vw, 16px); color: rgba(255,255,255,0.7); line-height: 1.7;
+      max-width: 520px; text-shadow: 0 1px 12px rgba(0,0,0,0.4);
+    }
+    .gallery-item .overlay .btn {
+      margin-top: 14px; display: inline-flex; width: fit-content;
+    }
+    .img-frame {
+      position: relative; overflow: hidden;
+      border: 1px solid rgba(46, 139, 87, 0.12);
+    }
+    .img-frame::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(46, 139, 87, 0.04), rgba(212, 160, 78, 0.02));
+      pointer-events: none;
+    }
+
+    /* ── 3. Order ── */
+    #order {
+      background: linear-gradient(180deg, transparent 0%, rgba(46, 139, 87, 0.02) 50%, transparent 100%);
+    }
+
+    .order-grid { max-width: 580px; margin: 0 auto; }
+
+    .order-card {
+      background: linear-gradient(135deg, rgba(46, 139, 87, 0.04), rgba(212, 160, 78, 0.02));
+      border: 1px solid var(--border); border-radius: var(--radius); padding: 36px 32px; text-align: center;
+    }
+    .order-card .tag {
+      display: inline-block; padding: 4px 14px; border-radius: 60px;
+      background: rgba(212, 160, 78, 0.08); color: var(--accent);
+      font-size: 10px; font-weight: 700; letter-spacing: 2px; margin-bottom: 12px;
+    }
+    .order-card .price { font-size: 48px; font-weight: 900; margin-bottom: 4px; }
+    .order-card .price small { font-size: 20px; vertical-align: super; }
+    .order-card .period { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; }
+    .order-card ul { list-style: none; text-align: right; margin-bottom: 20px; }
+    .order-card ul li {
+      display: flex; align-items: center; gap: 8px; padding: 7px 0;
+      font-size: 13px; color: var(--text-secondary);
+      border-bottom: 1px solid rgba(255,255,255,0.02);
+    }
+    .order-card ul li::before { content: "✓"; color: var(--primary); font-weight: 700; }
+    .order-card .btn { width: 100%; justify-content: center; }
+
+    .form-wrap { }
+    .form-wrap h3 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+    .form-wrap .p { margin-bottom: 20px !important; }
+
+    .order-form { display: flex; flex-direction: column; gap: 12px; }
     .order-form input, .order-form select {
-      width: 100%; padding: 14px 18px; border-radius: 12px;
+      width: 100%; padding: 14px 18px; border-radius: 10px;
       border: 1px solid var(--border); background: var(--bg-card);
       color: var(--text); font-family: var(--font); font-size: 14px;
       transition: 0.3s; text-align: right; outline: none; appearance: none;
     }
-    .order-form input:focus, .order-form select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1); }
+    .order-form input:focus, .order-form select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.08); }
     .order-form input::placeholder { color: var(--text-muted); }
+
     .qty-wrap {
       display: flex; align-items: center; gap: 0; direction: ltr;
       border: 1px solid var(--border); border-radius: 10px;
@@ -137,6 +224,13 @@
       background: transparent; color: var(--text); outline: none;
     }
     .qty-wrap input[type="number"] { -moz-appearance: textfield; }
+
+    .order-img {
+      border-radius: var(--radius); overflow: hidden;
+      aspect-ratio: 3 / 4; max-height: 420px;
+      border: 1px solid var(--border); box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+    .order-img img { width: 100%; height: 100%; object-fit: cover; }
 
     /* ── 4. Features + Ingredients ── */
     #features { }
@@ -358,71 +452,6 @@
     .reveal { opacity: 0; transform: translateY(24px); transition: all 0.6s cubic-bezier(.4,0,.2,1); }
     .reveal.show { opacity: 1; transform: translateY(0); }
 
-    /* ── Product Section (two-column) ── */
-    #product { padding-top: 100px; }
-    .product-grid { display: flex; gap: 48px; align-items: flex-start; }
-    .product-gallery { flex: 1; min-width: 0; position: sticky; top: 100px; }
-    .main-image {
-      border-radius: 16px; overflow: hidden;
-      border: 1px solid var(--border); background: var(--bg-card);
-      box-shadow: 0 12px 48px rgba(0,0,0,0.3); cursor: zoom-in;
-    }
-    .main-image img { width: 100%; height: auto; display: block; }
-    .thumbnails {
-      display: flex; gap: 10px; margin-top: 14px; direction: ltr;
-    }
-    .thumbnails .thumb {
-      width: 80px; height: 80px; border-radius: 10px; overflow: hidden;
-      border: 2px solid transparent; cursor: pointer; transition: 0.3s;
-      flex-shrink: 0; object-fit: cover; opacity: 0.6;
-    }
-    .thumbnails .thumb:hover { opacity: 0.9; }
-    .thumbnails .thumb.active { border-color: var(--accent); opacity: 1; }
-    .product-info { flex: 1; max-width: 480px; }
-    .product-badge {
-      display: inline-block; padding: 4px 14px; border-radius: 60px;
-      background: rgba(212,160,78,0.12); border: 1px solid rgba(212,160,78,0.2);
-      font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 12px;
-    }
-    .product-title { font-size: clamp(26px, 3vw, 36px); font-weight: 900; line-height: 1.15; margin-bottom: 6px; }
-    .product-sub { font-size: 14px; color: var(--text-secondary); margin-bottom: 14px; }
-    .product-price { font-size: 36px; font-weight: 900; color: var(--accent); margin-bottom: 20px; }
-    .product-price small { font-size: 16px; font-weight: 400; color: var(--text-secondary); }
-    .delivery-type {
-      display: flex; gap: 10px; direction: ltr;
-    }
-    .delivery-option {
-      flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 12px 10px; border-radius: 12px; border: 1px solid var(--border);
-      background: var(--bg-card); cursor: pointer; transition: 0.3s;
-      font-size: 13px; font-weight: 600; color: var(--text-secondary);
-      text-align: center;
-    }
-    .delivery-option:hover { border-color: rgba(46,139,87,0.3); }
-    .delivery-option.active { border-color: var(--primary); background: rgba(46,139,87,0.08); color: var(--text); }
-    .del-icon { font-size: 18px; }
-    .order-summary {
-      background: linear-gradient(135deg, var(--bg-card), rgba(46,139,87,0.04));
-      border: 1px solid var(--border); border-radius: 14px; padding: 20px;
-    }
-    .order-summary .summary-row {
-      display: flex; justify-content: space-between; padding: 6px 0;
-      font-size: 14px; color: var(--text-secondary);
-    }
-    .order-summary .summary-row.total {
-      border-top: 1px solid var(--border); margin-top: 6px; padding-top: 12px;
-      font-size: 18px; font-weight: 700; color: var(--accent);
-    }
-    .order-summary .btn { margin-top: 12px; }
-
-    @media (max-width: 900px) {
-      .product-grid { flex-direction: column; gap: 32px; }
-      .product-gallery { position: static; }
-      .product-info { max-width: 100%; }
-      .thumbnails { justify-content: center; }
-      #product { padding-top: 80px; }
-    }
-
     /* ── Responsive ── */
     @media (max-width: 768px) {
       .menu-toggle { display: flex; }
@@ -435,17 +464,32 @@
       }
       .nav-links.open { transform: translateY(0); opacity: 1; }
 
-      .fi-grid { grid-template-columns: 1fr; gap: 36px; }
+      .hero-grid, .order-grid, .fi-grid { grid-template-columns: 1fr; gap: 36px; }
+      .hero-grid { text-align: center; }
+
+      .hero-content { padding-top: 60px; }
+
+      .gallery-item { height: 92vh; }
+      .gallery-item .overlay { padding: 28px 20px; }
+      .gallery-item .overlay h3 { font-size: clamp(20px, 6vw, 28px); }
+      .gallery-item .overlay p { font-size: 13px; }
 
       .reviews-grid { grid-template-columns: 1fr; }
 
       section { padding: 50px 0; }
       #sticky-bar .info { display: none; }
       .footer-inner { flex-direction: column; text-align: center; }
+
+      .order-card ul { text-align: center; }
+      .order-card ul li { justify-content: center; }
     }
 
     @media (max-width: 480px) {
+
       .btn-lg { padding: 14px 32px; font-size: 15px; }
+      .gallery-item { height: 90vh; }
+      .gallery-item .overlay { padding: 20px 16px; }
+      .gallery-item .overlay h3 { font-size: 22px; }
     }
   </style>
   <!-- Facebook Pixel Code -->
@@ -471,80 +515,117 @@
   <header id="header">
     <div class="container">
       <nav>
-        <a href="#" class="logo">
-          <span class="logo-icon"><img src="logo.png" alt="شيلاجيت"></span>
-          شيلاجيت
-        </a>
+        <div style="flex:1;text-align:center;font-size:13px;color:#fff;font-weight:800;animation:fadeSlide 2s ease-in-out infinite alternate;">التوصيل متوفر لـ 58 ولاية</div>
         <button class="menu-toggle" id="menuToggle" aria-label="القائمة">
           <span></span><span></span><span></span>
         </button>
         <ul class="nav-links" id="navLinks">
           <li><a href="#features">المميزات</a></li>
           <li><a href="#faq">الأسئلة</a></li>
-          <li><a href="#product"><span class="nav-cta">اطلب الآن</span></a></li>
+          <li><a href="#pageForm"><span class="nav-cta">اطلب الآن</span></a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- ═══ Product Section ═══ -->
-  <section id="product">
+  <!-- ═══ 1. GALLERY ═══ -->
+  <section id="gallery">
     <div class="container">
-      <div class="product-grid">
-        <!-- Left: Gallery -->
-        <div class="product-gallery reveal">
-          <div class="main-image">
-            <img src="product-1.jpeg" alt="شيلاجيت الأصلي" id="mainProductImg">
-          </div>
-          <div class="thumbnails">
-            <img src="product-1.jpeg" alt="شيلاجيت" class="thumb active" onclick="switchImage(this,'product-1.jpeg')">
-            <img src="product-2.jpeg" alt="شيلاجيت" class="thumb" onclick="switchImage(this,'product-2.jpeg')">
-            <img src="product-3.jpeg" alt="شيلاجيت" class="thumb" onclick="switchImage(this,'product-3.jpeg')">
-            <img src="product-4.jpeg" alt="شيلاجيت" class="thumb" onclick="switchImage(this,'product-4.jpeg')">
-            <img src="product-5.jpeg" alt="شيلاجيت" class="thumb" onclick="switchImage(this,'product-5.jpeg')">
+      <div class="text-center reveal" style="padding:80px 20px 40px;">
+        <div class="gallery-headline-wrapper">
+          <h2 class="h2 gallery-headline">ابدأ رحلتك مع الطاقة الطبيعية اليوم</h2>
+        </div>
+      </div>
+      <div class="gallery-grid reveal">
+        <div class="gallery-item">
+          <img src="shilajit-7.jpeg" alt="شيلاجيت والرياضة" loading="lazy">
+          <div class="overlay">
+            <div class="tag">🔥 عرض خاص</div>
+            <h3>3,500 د.ج فقط</h3>
+            <div style="font-size:13px;color:var(--accent);font-weight:700;margin-bottom:6px;">كل الشيلاجيت الأصلي 40غ</div>
+            <a href="#pageForm" class="btn btn-accent">اطلب الآن ←</a>
           </div>
         </div>
-        <!-- Right: Info + Form -->
-        <div class="product-info reveal">
-          <div class="product-badge">🔥 الأفضل مبيعاً</div>
-          <h1 class="product-title">شيلاجيت الأصلي</h1>
-          <p class="product-sub">مستخلص طبيعي نقي من جبال الهمالايا • 40غ</p>
-          <div class="product-price">3,500 <small>د.ج</small></div>
+        <div class="gallery-item">
+          <img src="shilajit-2.jpeg" alt="شيلاجيت" loading="lazy">
+          <div class="overlay">
+            <div class="tag">⚡ الميزة</div>
+            <h3>طاقة طبيعية تدوم طوال اليوم</h3>
+            <p>يعزز إنتاج ATP في الميتوكوندريا ليمنحك نشاطاً حقيقياً بدون كافيين أو منشطات صناعية.</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="shilajit-1.jpeg" alt="شيلاجيت طبيعي" loading="lazy">
+          <div class="overlay">
 
-          <form class="order-form" id="pageForm">
-            <input type="text" name="name" placeholder="الاسم الكامل" required>
-            <input type="tel" name="phone" placeholder="رقم الهاتف" required>
-            <select name="wilaya" id="pageWilaya" required>
-              <option value="" disabled selected>الولاية</option>
-            </select>
-            <select name="municipality" id="pageMunicipality" required disabled>
-              <option value="" disabled selected>اختر الولاية أولاً</option>
-            </select>
-            <div class="delivery-type" id="pageDelivery">
-              <label class="delivery-option active" data-value="office">
-                <span class="del-icon">🏢</span>
-                <span>توصيل للمكتب</span>
-                <input type="radio" name="delivery" value="office" checked hidden>
-              </label>
-              <label class="delivery-option" data-value="home">
-                <span class="del-icon">🏠</span>
-                <span>توصيل للمنزل</span>
-                <input type="radio" name="delivery" value="home" hidden>
-              </label>
-            </div>
-            <div class="qty-wrap">
-              <button type="button" onclick="pageQtyChange(-1)">−</button>
-              <input type="number" name="qty" id="pageQtyInput" value="1" min="1" max="5" readonly>
-              <button type="button" onclick="pageQtyChange(1)">+</button>
-            </div>
-          </form>
+            <h3>شيلاجيت الطبيعي الخام</h3>
+            <p>مستخلص طبيعي من جبال الهمالايا بتركيبة فريدة غنية بالمعادن والفولفيك أسيد.</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="shilajit-3.jpeg" alt="شيلاجيت" loading="lazy">
+          <div class="overlay">
+            <div class="tag">💪 الفائدة</div>
+            <h3>أداء رياضي خارق</h3>
+            <p>يحسن التحمل ويسرع التعافي العضلي ويزيد القوة البدنية. مثالي للرياضيين قبل التمرين وبعده.</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="shilajit-5.jpeg" alt="شيلاجيت" loading="lazy">
+          <div class="overlay">
+            <div class="tag">🧠 العضوية</div>
+            <h3>وضوح ذهني وتركيز أقوى</h3>
+            <p>يغذي الدماغ بمضادات الأكسدة ويحسن الذاكرة والتركيز ويحمي من التدهور المعرفي.</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="shilajit-6.jpeg" alt="أداء رياضي" loading="lazy">
+          <div class="overlay">
+            <div class="tag">🛡️ المناعة</div>
+            <h3>مناعة أقوى وصحة أفضل</h3>
+            <p>مضاد أكسدة طبيعي قوي يحمي الخلايا من التلف ويقوي جهاز المناعة لمقاومة الأمراض.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <div class="order-summary" id="pageSummary">
-            <div class="summary-row"><span>المنتج</span><span>شيلاجيت × <span id="pageQtyLabel">1</span></span></div>
-            <div class="summary-row"><span>السعر</span><span id="pagePriceDisplay" style="font-weight:600;">3,500 د.ج</span></div>
-            <div class="summary-row"><span>التوصيل</span><span id="pageDeliveryFee">—</span></div>
-            <div class="summary-row total"><span>المجموع</span><span id="pageTotalDisplay">3,500 د.ج</span></div>
-            <button type="submit" form="pageForm" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;">اطلب الآن ✓</button>
+  <!-- ═══ 2. ORDER ═══ -->
+  <section id="order">
+    <div class="container">
+      <div class="text-center reveal">
+        <div style="display:inline-block;background:var(--grad-accent);color:#0a0f0b;font-weight:700;font-size:15px;padding:8px 22px;border-radius:60px;margin-top:-16px;margin-bottom:12px;">املأ معلوماتك وسنراسلك لتأكيد الطلب</div>
+      </div>
+      <div class="order-grid">
+        <div class="reveal">
+          <div style="max-width:480px;margin:0 auto;">
+            <div id="pagePriceArea" style="text-align:center;margin-bottom:16px;">
+              <div style="font-size:14px;color:var(--text-secondary);font-weight:600;">المنتج <span id="pageQtyLabel">1</span> × 3,500 د.ج</div>
+              <div id="pagePriceDisplay" style="font-size:14px;color:var(--text-muted);margin-top:2px;"></div>
+              <div id="pageDeliveryFee" style="font-size:14px;min-height:22px;margin-top:4px;"></div>
+              <div id="pageTotalDisplay" style="font-size:22px;font-weight:900;color:var(--accent);margin-top:6px;">3,500 <small style="font-size:14px;font-weight:400;color:var(--text-secondary);">د.ج</small></div>
+            </div>
+            <form class="order-form" id="pageForm">
+                <input type="text" name="name" placeholder="الاسم الكامل" required>
+                <input type="tel" name="phone" placeholder="رقم الهاتف" required>
+                <select name="wilaya" id="pageWilaya" required>
+                  <option value="" disabled selected>الولاية</option>
+                </select>
+                <select name="municipality" id="pageMunicipality" required disabled>
+                  <option value="" disabled selected>اختر الولاية أولاً</option>
+                </select>
+                <select name="delivery" id="pageDelivery" required>
+                  <option value="" disabled selected>نوع التوصيل</option>
+                  <option value="office">توصيل للمكتب</option>
+                  <option value="home">توصيل للمنزل</option>
+                </select>
+                <div class="qty-wrap">
+                  <button type="button" onclick="pageQtyChange(-1)">−</button>
+                  <input type="number" name="qty" id="pageQtyInput" value="1" min="1" max="5" readonly>
+                  <button type="button" onclick="pageQtyChange(1)">+</button>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:15px 30px;font-size:16px;">تأكيد الطلب ✓</button>
+              </form>
           </div>
         </div>
       </div>
@@ -719,13 +800,13 @@
         <div class="modal-product">
           <img src="shilajit-1.jpeg" alt="شيلاجيت" loading="lazy">
           <div>
-            <h3>شيلاجيت الأصلي</h3>
-            <p class="modal-desc">شيلاجيت الهمالايا الخام • 40 غ</p>
+            <h3>ياكلة شيلاجيت الأصلية</h3>
+            <p class="modal-desc">شيلاجيت الهمالايا الخام • 100 جرام</p>
             <div class="modal-price">3,500 <small>د.ج</small></div>
           </div>
         </div>
         <div class="modal-summary" id="modalSummary">
-          <div class="summary-row"><span>المنتج</span><span>شيلاجيت 40غ</span></div>
+          <div class="summary-row"><span>المنتج</span><span>شيلاجيت 100g</span></div>
           <div class="summary-row"><span>السعر</span><span>3,500 د.ج</span></div>
           <div class="summary-row"><span>الكمية</span><span id="modalQty">1</span></div>
           <div class="summary-row"><span style="color:var(--text-secondary);font-size:13px;" id="modalDeliveryFee"></span></div>
@@ -740,18 +821,11 @@
           <select name="municipality" id="modalMunicipality" required disabled>
             <option value="" disabled selected>اختر الولاية أولاً</option>
           </select>
-          <div class="delivery-type" id="modalDelivery">
-            <label class="delivery-option active" data-value="office">
-              <span class="del-icon">🏢</span>
-              <span>توصيل للمكتب</span>
-              <input type="radio" name="delivery" value="office" checked hidden>
-            </label>
-            <label class="delivery-option" data-value="home">
-              <span class="del-icon">🏠</span>
-              <span>توصيل للمنزل</span>
-              <input type="radio" name="delivery" value="home" hidden>
-            </label>
-          </div>
+          <select name="delivery" id="modalDelivery" required>
+                  <option value="" disabled selected>نوع التوصيل</option>
+                  <option value="office">توصيل للمكتب</option>
+                  <option value="home">توصيل للمنزل</option>
+                </select>
           <div class="qty-wrap">
             <button type="button" onclick="modalQtyChange(-1)">−</button>
             <input type="number" name="qty" id="modalQtyInput" value="1" min="1" max="5" readonly>
@@ -791,10 +865,10 @@
   <!-- ═══ Sticky CTA ═══ -->
   <div id="sticky-bar">
     <div class="info">
-      <div class="label">شيلاجيت الأصلي 40غ</div>
+      <div class="label">شيلاجيت 100g</div>
       <div class="price">3,500 د.ج</div>
     </div>
-    <a href="#product" class="btn btn-primary">اطلب الآن ←</a>
+    <a href="#pageForm" class="btn btn-primary">اطلب الآن ←</a>
   </div>
 
   <script>
@@ -805,14 +879,6 @@
         header.classList.toggle('scrolled', window.scrollY > 60);
         sticky.classList.toggle('show', window.scrollY > window.innerHeight * 0.55);
       }, {passive: true});
-
-      /* ── Thumbnail image switcher ── */
-      window.switchImage = function(el, src) {
-        document.getElementById('mainProductImg').src = src;
-        document.querySelectorAll('.thumbnails .thumb').forEach(function(t) { t.classList.remove('active'); });
-        el.classList.add('active');
-      };
-
       var toggle = document.getElementById('menuToggle');
       var navLinks = document.getElementById('navLinks');
       toggle.addEventListener('click', function() {
@@ -984,12 +1050,7 @@
         var m = document.getElementById(prefix + 'Municipality');
         var d = document.getElementById(prefix + 'Delivery');
         var q = document.getElementById(prefix + 'QtyInput');
-        var deliveryVal = '';
-        if (d) {
-          var checked = d.querySelector('input[name="delivery"]:checked');
-          deliveryVal = checked ? checked.value : (d.value || '');
-        }
-        return {wilaya: w ? w.value : '', mun: m ? m.value : '', delivery: deliveryVal, qty: q ? parseInt(q.value)||1 : 1};
+        return {wilaya: w ? w.value : '', mun: m ? m.value : '', delivery: d ? d.value : '', qty: q ? parseInt(q.value)||1 : 1};
       }
 
       modalWilaya.addEventListener('change', function() {
@@ -1004,24 +1065,16 @@
         updatePriceDisplay('page', v.wilaya, v.mun, v.delivery, v.qty);
       });
 
-      /* ── Modal delivery radio buttons ── */
-      document.querySelectorAll('#modalDelivery .delivery-option').forEach(function(el) {
-        el.addEventListener('click', function() {
-          document.querySelectorAll('#modalDelivery .delivery-option').forEach(function(o) { o.classList.remove('active'); });
-          this.classList.add('active');
-          this.querySelector('input[type="radio"]').checked = true;
+      document.querySelectorAll('#modalForm select[name=\"delivery\"]').forEach(function(el) {
+        el.addEventListener('change', function() {
           var v = getFormValues('modal');
-          updatePriceDisplay('modal', v.wilaya, v.mun, v.delivery, v.qty);
+          updatePriceDisplay('modal', v.wilaya, v.mun, this.value, v.qty);
         });
       });
-      /* ── Page delivery radio buttons ── */
-      document.querySelectorAll('#pageDelivery .delivery-option').forEach(function(el) {
-        el.addEventListener('click', function() {
-          document.querySelectorAll('#pageDelivery .delivery-option').forEach(function(o) { o.classList.remove('active'); });
-          this.classList.add('active');
-          this.querySelector('input[type="radio"]').checked = true;
+      document.querySelectorAll('#pageForm select[name=\"delivery\"]').forEach(function(el) {
+        el.addEventListener('change', function() {
           var v = getFormValues('page');
-          updatePriceDisplay('page', v.wilaya, v.mun, v.delivery, v.qty);
+          updatePriceDisplay('page', v.wilaya, v.mun, this.value, v.qty);
         });
       });
 

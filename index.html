@@ -866,6 +866,17 @@
           navLinks.classList.remove('open');
         });
       });
+      document.querySelectorAll('a[href="#pageForm"]').forEach(function(el) {
+        el.addEventListener('click', function(e) {
+          e.preventDefault();
+          var target = document.getElementById('pageForm');
+          if (target) {
+            var headerH = document.getElementById('header').offsetHeight || 80;
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            window.scrollBy(0, -headerH - 10);
+          }
+        });
+      });
       var sticky = document.getElementById('sticky-bar');
       window.addEventListener('scroll', function() {
         sticky.classList.toggle('show', window.scrollY > window.innerHeight * 0.55);

@@ -1231,24 +1231,27 @@
             count--;
             var el = document.querySelector('.btn-countdown');
             if (el) el.textContent = count;
-            if (count <= 0) {
-              clearInterval(timer);
-              countdownView.style.display = 'none';
-              form.style.display = '';
-              document.getElementById('modalQty').textContent = '1';
-              document.getElementById('modalQtyInput').value = '1';
-              var dFee = document.getElementById('modalDeliveryFee');
-              var dTot = document.getElementById('modalTotalDisplay');
-              if (dFee) dFee.textContent = '';
-              if (dTot) dTot.innerHTML = '<span style="font-weight:700;">3,500 د.ج</span>';
-              var mw = document.getElementById('modalWilaya');
-              if (mw) mw.value = '';
-              var mm = document.getElementById('modalMunicipality');
-              if (mm) { mm.innerHTML = '<option value="" disabled selected>اختر الولاية أولاً</option>'; mm.disabled = true; }
-              var md = document.getElementById('modalDelivery');
-              if (md) md.value = 'home';
-              closeModal();
-            }
+              if (count <= 0) {
+                clearInterval(timer);
+                countdownView.style.display = 'none';
+                form.style.display = '';
+                form.querySelector('input[name="name"]').value = '';
+                form.querySelector('input[name="phone"]').value = '';
+                document.getElementById('modalPhoneError').style.display = 'none';
+                document.getElementById('modalQty').textContent = '1';
+                document.getElementById('modalQtyInput').value = '1';
+                var dFee = document.getElementById('modalDeliveryFee');
+                var dTot = document.getElementById('modalTotalDisplay');
+                if (dFee) dFee.textContent = '';
+                if (dTot) dTot.innerHTML = '<span style="font-weight:700;">3,500 د.ج</span>';
+                var mw = document.getElementById('modalWilaya');
+                if (mw) mw.value = '';
+                var mm = document.getElementById('modalMunicipality');
+                if (mm) { mm.innerHTML = '<option value="" disabled selected>اختر الولاية أولاً</option>'; mm.disabled = true; }
+                var md = document.getElementById('modalDelivery');
+                if (md) md.value = 'home';
+                closeModal();
+              }
           }, 1000);
         });
 
@@ -1317,6 +1320,9 @@
                 clearInterval(timer);
                 pageCountdownView.style.display = 'none';
                 pageForm.style.display = '';
+                pageForm.querySelector('input[name="name"]').value = '';
+                pageForm.querySelector('input[name="phone"]').value = '';
+                document.getElementById('pagePhoneError').style.display = 'none';
                 document.getElementById('pageQtyInput').value = '1';
                 document.getElementById('pageQtyLabel').textContent = '1';
                 var pw = document.getElementById('pageWilaya');

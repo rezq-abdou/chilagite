@@ -1252,6 +1252,12 @@
                 var dTot = document.getElementById('modalTotalDisplay');
                 if (dFee) dFee.textContent = '';
                 if (dTot) dTot.innerHTML = '<span style="font-weight:700;">3,500 د.ج</span>';
+                var mw = document.getElementById('modalWilaya');
+                if (mw) mw.value = '';
+                var mm = document.getElementById('modalMunicipality');
+                if (mm) { mm.innerHTML = '<option value="" disabled selected>اختر الولاية أولاً</option>'; mm.disabled = true; }
+                var md = document.getElementById('modalDelivery');
+                if (md) md.value = 'home';
                 closeModal();
               }
             }, 1000);
@@ -1343,6 +1349,15 @@
                   pageForm.innerHTML = originalPageHTML;
                   document.getElementById('pageQtyInput').value = '1';
                   document.getElementById('pageQtyLabel').textContent = '1';
+                  var pw = document.getElementById('pageWilaya');
+                  if (pw) pw.value = '';
+                  var pm = document.getElementById('pageMunicipality');
+                  if (pm) { pm.innerHTML = '<option value="" disabled selected>اختر الولاية أولاً</option>'; pm.disabled = true; }
+                  var pd = document.getElementById('pageDelivery');
+                  if (pd) pd.value = 'home';
+                  document.getElementById('pageDeliveryFee').textContent = '';
+                  document.getElementById('pageTotalDisplay').innerHTML = '3,500 <small style="font-size:14px;font-weight:400;color:var(--text-secondary);">د.ج</small>';
+                  document.getElementById('pagePriceDisplay').textContent = '';
                 }
               }, 1000);
             });

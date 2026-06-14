@@ -1174,8 +1174,7 @@
 
         var countdownView = document.createElement('div');
         countdownView.id = 'modalCountdownView';
-        countdownView.style.display = 'none';
-        countdownView.setAttribute('style', 'text-align:center;padding:32px 24px;background:linear-gradient(135deg,#d4a04e,#e8bc6a);border-radius:16px;color:#0a0f0b;font-weight:700;font-size:20px;box-shadow:0 8px 32px rgba(212,160,78,0.3);');
+        countdownView.setAttribute('style', 'display:none;text-align:center;padding:32px 24px;background:linear-gradient(135deg,#d4a04e,#e8bc6a);border-radius:16px;color:#0a0f0b;font-weight:700;font-size:20px;box-shadow:0 8px 32px rgba(212,160,78,0.3);');
         form.parentNode.insertBefore(countdownView, confirmView.nextSibling);
 
         function submitToSheet(data, fee, grandTotal) {
@@ -1278,8 +1277,7 @@
 
           var pageCountdownView = document.createElement('div');
           pageCountdownView.id = 'pageCountdownView';
-          pageCountdownView.style.display = 'none';
-          pageCountdownView.setAttribute('style', 'text-align:center;padding:32px 24px;background:linear-gradient(135deg,#d4a04e,#e8bc6a);border-radius:16px;color:#0a0f0b;font-weight:700;font-size:20px;box-shadow:0 8px 32px rgba(212,160,78,0.3);');
+          pageCountdownView.setAttribute('style', 'display:none;text-align:center;padding:32px 24px;background:linear-gradient(135deg,#d4a04e,#e8bc6a);border-radius:16px;color:#0a0f0b;font-weight:700;font-size:20px;box-shadow:0 8px 32px rgba(212,160,78,0.3);');
           pageForm.parentNode.insertBefore(pageCountdownView, pageConfirm.nextSibling);
 
           pageForm.addEventListener('submit', function(e) {

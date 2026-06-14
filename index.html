@@ -586,7 +586,7 @@
             </div>
             <form class="order-form" id="pageForm">
                 <input type="text" name="name" placeholder="الاسم الكامل" required>
-                <input type="tel" name="phone" placeholder="رقم الهاتف" inputmode="numeric" pattern="0[567]\d{7}" maxlength="10" autocomplete="tel" required>
+                <input type="tel" name="phone" placeholder="رقم الهاتف" inputmode="numeric" pattern="0[567]\d{8}" maxlength="10" autocomplete="tel" required>
                 <div class="phone-error" id="pagePhoneError"></div>
                 <select name="wilaya" id="pageWilaya" required>
                   <option value="" disabled selected>الولاية</option>
@@ -794,7 +794,7 @@
         </div>
         <form class="modal-form" id="modalForm">
           <input type="text" name="name" placeholder="الاسم الكامل" required>
-           <input type="tel" name="phone" placeholder="رقم الهاتف" inputmode="numeric" pattern="0[567]\d{7}" maxlength="10" autocomplete="tel" required>
+           <input type="tel" name="phone" placeholder="رقم الهاتف" inputmode="numeric" pattern="0[567]\d{8}" maxlength="10" autocomplete="tel" required>
            <div class="phone-error" id="modalPhoneError"></div>
            <select name="wilaya" id="modalWilaya" required>
             <option value="" disabled selected>الولاية</option>
@@ -1125,7 +1125,7 @@
         input.addEventListener('blur', function() {
           var v = this.value.trim();
           if (!v) return;
-          if (!/^0[567]\d{7}$/.test(v)) {
+          if (!/^0[567]\d{8}$/.test(v)) {
             error.textContent = 'رقم الهاتف يجب أن يبدأ بـ 05 أو 06 أو 07';
             error.style.display = 'block';
           } else {
@@ -1204,7 +1204,7 @@
           var data = {};
           fd.forEach(function(v, k) { data[k] = v; });
           if (!data.name || !data.phone || !data.wilaya || !data.municipality || !data.delivery) return;
-          if (!/^0[567]\d{7}$/.test(data.phone.trim())) return;
+          if (!/^0[567]\d{8}$/.test(data.phone.trim())) return;
 
           var qty = parseInt(data.qty) || 1;
           var fee = getDeliveryFee(data.wilaya, data.municipality, data.delivery);
@@ -1272,7 +1272,7 @@
             var data = {};
             fd.forEach(function(v, k) { data[k] = v; });
             if (!data.name || !data.phone || !data.wilaya || !data.municipality || !data.delivery) return;
-            if (!/^0[567]\d{7}$/.test(data.phone.trim())) return;
+            if (!/^0[567]\d{8}$/.test(data.phone.trim())) return;
 
             var qty = parseInt(data.qty) || 1;
             var fee = getDeliveryFee(data.wilaya, data.municipality, data.delivery);

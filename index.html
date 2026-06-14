@@ -1216,56 +1216,38 @@
           var grandTotal = fee !== null ? productTotal + fee : productTotal;
           var d = data.delivery === 'office' ? 'توصيل للمكتب' : data.delivery === 'home' ? 'توصيل للمنزل' : data.delivery;
 
-          confirmView.innerHTML = '' +
-            '<h3 style="text-align:center;margin:0 0 16px;color:var(--primary);">📋 تأكيد الطلب</h3>' +
-            '<div style="background:var(--bg);border-radius:12px;padding:16px 18px;font-size:14px;">' +
-              Object.entries({الاسم:data.name,الهاتف:data.phone,الولاية:data.wilaya,البلدية:data.municipality,التوصيل:d,الكمية:qty}).map(function(e){return'<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:var(--text-secondary);">'+e[0]+'</span><span style="font-weight:600;">'+e[1]+'</span></div>'}).join('') +
-              (feeText ? '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:var(--text-secondary);">التوصيل</span><span style="font-weight:600;">'+feeText+'</span></div>' : '') +
-              '<div style="display:flex;justify-content:space-between;padding:8px 0 0;margin-top:8px;border-top:1px solid var(--border);font-size:18px;font-weight:700;color:var(--primary);"><span>المجموع الكلي</span><span>'+grandTotal.toLocaleString()+' د.ج</span></div>' +
-            '</div>' +
-            '<a href="https://wa.me/213555027237?text=' + encodeURIComponent('السلام عليكم أريد طلب شيلاجيت - ' + data.name + ' - ' + data.wilaya) + '" target="_blank" class="btn-wa" style="width:100%;justify-content:center;margin-top:16px;">💬 أرسل عبر واتساب</a>' +
-            '<div style="display:flex;gap:10px;margin-top:10px;">' +
-              '<button type="button" onclick="document.getElementById(\'confirmView\').style.display=\'none\';document.getElementById(\'modalForm\').style.display=\'\'" style="flex:1;padding:14px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:15px;cursor:pointer;">تعديل</button>' +
-              '<button type="button" id="finalConfirmBtn" class="btn btn-primary" style="flex:1;justify-content:center;padding:14px;font-size:15px;">تأكيد ✓</button>' +
-            '</div>';
-          confirmView.style.display = 'block';
+          confirmView.style.display = 'none';
           form.style.display = 'none';
-
-          document.getElementById('finalConfirmBtn').addEventListener('click', function() {
-            this.disabled = true;
-            this.textContent = '⏳ جاري الإرسال...';
-            submitToSheet(data, fee, grandTotal);
-            try { fbq('track', 'Purchase', {value: grandTotal, currency: 'DZD'}); } catch(e){};
-            sendTelegram(data.name, data.phone, data.wilaya, data.municipality, d, qty);
-            confirmView.style.display = 'none';
-            form.style.display = 'none';
-            var count = 5;
-            countdownView.innerHTML = '📞 ابق هاتفك مشغّل<br><span style="font-size:14px;font-weight:400;display:block;margin-top:6px;">فريقنا سيتصل بك الفترة ما بين العصر إلى المغرب</span><span class="btn-countdown" style="display:block;margin-top:10px;font-size:32px;font-weight:900;">' + count + '</span>';
-            countdownView.style.display = 'block';
-            var timer = setInterval(function() {
-              count--;
-              var el = document.querySelector('.btn-countdown');
-              if (el) el.textContent = count;
-              if (count <= 0) {
-                clearInterval(timer);
-                countdownView.style.display = 'none';
-                form.style.display = '';
-                document.getElementById('modalQty').textContent = '1';
-                document.getElementById('modalQtyInput').value = '1';
-                var dFee = document.getElementById('modalDeliveryFee');
-                var dTot = document.getElementById('modalTotalDisplay');
-                if (dFee) dFee.textContent = '';
-                if (dTot) dTot.innerHTML = '<span style="font-weight:700;">3,500 د.ج</span>';
-                var mw = document.getElementById('modalWilaya');
-                if (mw) mw.value = '';
-                var mm = document.getElementById('modalMunicipality');
-                if (mm) { mm.innerHTML = '<option value="" disabled selected>اختر الولاية أولاً</option>'; mm.disabled = true; }
-                var md = document.getElementById('modalDelivery');
-                if (md) md.value = 'home';
-                closeModal();
-              }
-            }, 1000);
-          });
+          submitToSheet(data, fee, grandTotal);
+          try { fbq('track', 'Purchase', {value: grandTotal, currency: 'DZD'}); } catch(e){};
+          sendTelegram(data.name, data.phone, data.wilaya, data.municipality, d, qty);
+          var count = 5;
+          countdownView.innerHTML = '📞 ابق هاتفك مشغّل<br><span style="font-size:14px;font-weight:400;display:block;margin-top:6px;">فريقنا سيتصل بك الفترة ما بين العصر إلى المغرب</span><span class="btn-countdown" style="display:block;margin-top:10px;font-size:32px;font-weight:900;">' + count + '</span>' +
+            '<a href="https://wa.me/213555027237?text=' + encodeURIComponent('السلام عليكم أريد طلب شيلاجيت - ' + data.name + ' - ' + data.wilaya) + '" target="_blank" class="btn-wa" style="width:100%;justify-content:center;margin-top:16px;">💬 تواصل عبر واتساب</a>';
+          countdownView.style.display = 'block';
+          var timer = setInterval(function() {
+            count--;
+            var el = document.querySelector('.btn-countdown');
+            if (el) el.textContent = count;
+            if (count <= 0) {
+              clearInterval(timer);
+              countdownView.style.display = 'none';
+              form.style.display = '';
+              document.getElementById('modalQty').textContent = '1';
+              document.getElementById('modalQtyInput').value = '1';
+              var dFee = document.getElementById('modalDeliveryFee');
+              var dTot = document.getElementById('modalTotalDisplay');
+              if (dFee) dFee.textContent = '';
+              if (dTot) dTot.innerHTML = '<span style="font-weight:700;">3,500 د.ج</span>';
+              var mw = document.getElementById('modalWilaya');
+              if (mw) mw.value = '';
+              var mm = document.getElementById('modalMunicipality');
+              if (mm) { mm.innerHTML = '<option value="" disabled selected>اختر الولاية أولاً</option>'; mm.disabled = true; }
+              var md = document.getElementById('modalDelivery');
+              if (md) md.value = 'home';
+              closeModal();
+            }
+          }, 1000);
         });
 
         /* ── Page form submit ── */
@@ -1296,81 +1278,56 @@
             var grandTotal = fee !== null ? productTotal + fee : productTotal;
             var d = data.delivery === 'office' ? 'توصيل للمكتب' : data.delivery === 'home' ? 'توصيل للمنزل' : data.delivery;
 
-            pageConfirm.innerHTML = '' +
-              '<h3 style="text-align:center;margin:0 0 16px;color:var(--primary);font-size:18px;">📋 تأكيد الطلب</h3>' +
-              '<div style="background:var(--bg);border-radius:12px;padding:16px 18px;font-size:14px;">' +
-                (function() {
-                  var items = {الاسم:data.name,الهاتف:data.phone,الولاية:data.wilaya,البلدية:data.municipality,التوصيل:d,الكمية:qty};
-                  var html = '';
-                  for (var k in items) {
-                    html += '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:var(--text-secondary);">'+k+'</span><span style="font-weight:600;">'+items[k]+'</span></div>';
-                  }
-                  return html;
-                })() +
-                (feeText ? '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:var(--text-secondary);">التوصيل</span><span style="font-weight:600;">'+feeText+'</span></div>' : '') +
-                '<div style="display:flex;justify-content:space-between;padding:8px 0 0;margin-top:8px;border-top:1px solid var(--border);font-size:18px;font-weight:700;color:var(--primary);"><span>المجموع الكلي</span><span>'+grandTotal.toLocaleString()+' د.ج</span></div>' +
-              '</div>' +
-              '<a href="https://wa.me/213555027237?text=' + encodeURIComponent('السلام عليكم أريد طلب شيلاجيت - ' + data.name + ' - ' + data.wilaya) + '" target="_blank" class="btn-wa" style="width:100%;justify-content:center;margin-top:16px;">💬 أرسل عبر واتساب</a>' +
-              '<div style="display:flex;gap:10px;margin-top:10px;">' +
-                '<button type="button" onclick="document.getElementById(\'pageConfirm\').style.display=\'none\';document.getElementById(\'pageForm\').style.display=\'\'" style="flex:1;padding:14px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:15px;cursor:pointer;">تعديل</button>' +
-                '<button type="button" id="pageFinalConfirm" class="btn btn-primary" style="flex:1;justify-content:center;padding:14px;font-size:15px;">تأكيد ✓</button>' +
-              '</div>';
-            pageConfirm.style.display = 'block';
+            pageConfirm.style.display = 'none';
             pageForm.style.display = 'none';
+            var t = document.createElement('textarea');
+            t.name = 'name'; t.value = data.name; pageForm.appendChild(t);
+            t = document.createElement('textarea');
+            t.name = 'phone'; t.value = data.phone; pageForm.appendChild(t);
+            t = document.createElement('textarea');
+            t.name = 'wilaya'; t.value = data.wilaya; pageForm.appendChild(t);
+            t = document.createElement('textarea');
+            t.name = 'municipality'; t.value = data.municipality; pageForm.appendChild(t);
+            t = document.createElement('textarea');
+            t.name = 'delivery'; t.value = data.delivery; pageForm.appendChild(t);
+            t = document.createElement('textarea');
+            t.name = 'qty'; t.value = data.qty; pageForm.appendChild(t);
+            t = document.createElement('textarea');
+            t.name = 'delivery_fee'; t.value = fee !== null ? fee : ''; pageForm.appendChild(t);
+            t = document.createElement('textarea');
+            t.name = 'total'; t.value = grandTotal; pageForm.appendChild(t);
+            pageForm.action = SHEET_URL;
+            pageForm.method = 'POST';
+            pageForm.target = 'hidden_iframe';
+            pageForm.submit();
+            try { fbq('track', 'Purchase', {value: grandTotal, currency: 'DZD'}); } catch(e){}
+            sendTelegram(data.name, data.phone, data.wilaya, data.municipality, d, qty);
 
-            document.getElementById('pageFinalConfirm').addEventListener('click', function() {
-              this.disabled = true;
-              this.textContent = '⏳ جاري الإرسال...';
-              var t = document.createElement('textarea');
-              t.name = 'name'; t.value = data.name; pageForm.appendChild(t);
-              t = document.createElement('textarea');
-              t.name = 'phone'; t.value = data.phone; pageForm.appendChild(t);
-              t = document.createElement('textarea');
-              t.name = 'wilaya'; t.value = data.wilaya; pageForm.appendChild(t);
-              t = document.createElement('textarea');
-              t.name = 'municipality'; t.value = data.municipality; pageForm.appendChild(t);
-              t = document.createElement('textarea');
-              t.name = 'delivery'; t.value = data.delivery; pageForm.appendChild(t);
-              t = document.createElement('textarea');
-              t.name = 'qty'; t.value = data.qty; pageForm.appendChild(t);
-              t = document.createElement('textarea');
-              t.name = 'delivery_fee'; t.value = fee !== null ? fee : ''; pageForm.appendChild(t);
-              t = document.createElement('textarea');
-              t.name = 'total'; t.value = grandTotal; pageForm.appendChild(t);
-              pageForm.action = SHEET_URL;
-              pageForm.method = 'POST';
-              pageForm.target = 'hidden_iframe';
-              pageForm.submit();
-              try { fbq('track', 'Purchase', {value: grandTotal, currency: 'DZD'}); } catch(e){}
-              sendTelegram(data.name, data.phone, data.wilaya, data.municipality, d, qty);
-
-              pageConfirm.style.display = 'none';
-              pageForm.style.display = 'none';
-              var count = 5;
-              pageCountdownView.innerHTML = '📞 ابق هاتفك مشغّل<br><span style="font-size:14px;font-weight:400;display:block;margin-top:6px;">فريقنا سيتصل بك الفترة ما بين العصر إلى المغرب</span><span class="page-countdown" style="display:block;margin-top:10px;font-size:32px;font-weight:900;">' + count + '</span>';
-              pageCountdownView.style.display = 'block';
-              var timer = setInterval(function() {
-                count--;
-                var el = document.querySelector('.page-countdown');
-                if (el) el.textContent = count;
-                if (count <= 0) {
-                  clearInterval(timer);
-                  pageCountdownView.style.display = 'none';
-                  pageForm.style.display = '';
-                  document.getElementById('pageQtyInput').value = '1';
-                  document.getElementById('pageQtyLabel').textContent = '1';
-                  var pw = document.getElementById('pageWilaya');
-                  if (pw) pw.value = '';
-                  var pm = document.getElementById('pageMunicipality');
-                  if (pm) { pm.innerHTML = '<option value="" disabled selected>اختر الولاية أولاً</option>'; pm.disabled = true; }
-                  var pd = document.getElementById('pageDelivery');
-                  if (pd) pd.value = 'home';
-                  document.getElementById('pageDeliveryFee').textContent = '';
-                  document.getElementById('pageTotalDisplay').innerHTML = '3,500 <small style="font-size:14px;font-weight:400;color:var(--text-secondary);">د.ج</small>';
-                  document.getElementById('pagePriceDisplay').textContent = '';
-                }
-              }, 1000);
-            });
+            var count = 5;
+            pageCountdownView.innerHTML = '📞 ابق هاتفك مشغّل<br><span style="font-size:14px;font-weight:400;display:block;margin-top:6px;">فريقنا سيتصل بك الفترة ما بين العصر إلى المغرب</span><span class="page-countdown" style="display:block;margin-top:10px;font-size:32px;font-weight:900;">' + count + '</span>' +
+              '<a href="https://wa.me/213555027237?text=' + encodeURIComponent('السلام عليكم أريد طلب شيلاجيت - ' + data.name + ' - ' + data.wilaya) + '" target="_blank" class="btn-wa" style="width:100%;justify-content:center;margin-top:16px;">💬 تواصل عبر واتساب</a>';
+            pageCountdownView.style.display = 'block';
+            var timer = setInterval(function() {
+              count--;
+              var el = document.querySelector('.page-countdown');
+              if (el) el.textContent = count;
+              if (count <= 0) {
+                clearInterval(timer);
+                pageCountdownView.style.display = 'none';
+                pageForm.style.display = '';
+                document.getElementById('pageQtyInput').value = '1';
+                document.getElementById('pageQtyLabel').textContent = '1';
+                var pw = document.getElementById('pageWilaya');
+                if (pw) pw.value = '';
+                var pm = document.getElementById('pageMunicipality');
+                if (pm) { pm.innerHTML = '<option value="" disabled selected>اختر الولاية أولاً</option>'; pm.disabled = true; }
+                var pd = document.getElementById('pageDelivery');
+                if (pd) pd.value = 'home';
+                document.getElementById('pageDeliveryFee').textContent = '';
+                document.getElementById('pageTotalDisplay').innerHTML = '3,500 <small style="font-size:14px;font-weight:400;color:var(--text-secondary);">د.ج</small>';
+                document.getElementById('pagePriceDisplay').textContent = '';
+              }
+            }, 1000);
           });
         }
       })();

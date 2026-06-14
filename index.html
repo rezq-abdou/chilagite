@@ -1238,6 +1238,7 @@
                 clearInterval(timer);
                 countdownView.style.display = 'none';
                 form.style.display = '';
+                form.querySelectorAll('textarea').forEach(function(el){el.remove()});
                 form.querySelector('input[name="name"]').value = '';
                 form.querySelector('input[name="phone"]').value = '';
                 document.getElementById('modalPhoneError').style.display = 'none';
@@ -1323,6 +1324,7 @@
                 clearInterval(timer);
                 pageCountdownView.style.display = 'none';
                 pageForm.style.display = '';
+                pageForm.querySelectorAll('textarea').forEach(function(el){el.remove()});
                 pageForm.querySelector('input[name="name"]').value = '';
                 pageForm.querySelector('input[name="phone"]').value = '';
                 document.getElementById('pagePhoneError').style.display = 'none';

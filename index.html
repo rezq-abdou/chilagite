@@ -1175,6 +1175,12 @@
         confirmView.style.display = 'none';
         form.parentNode.insertBefore(confirmView, form.nextSibling);
 
+        var countdownView = document.createElement('div');
+        countdownView.id = 'modalCountdownView';
+        countdownView.style.display = 'none';
+        countdownView.setAttribute('style', 'text-align:center;padding:32px 24px;background:linear-gradient(135deg,#d4a04e,#e8bc6a);border-radius:16px;color:#0a0f0b;font-weight:700;font-size:20px;box-shadow:0 8px 32px rgba(212,160,78,0.3);');
+        form.parentNode.insertBefore(countdownView, confirmView.nextSibling);
+
         function submitToSheet(data, fee, grandTotal) {
           var t = document.createElement('textarea');
           t.name = 'name'; t.value = data.name; form.appendChild(t);
@@ -1235,17 +1241,18 @@
             try { fbq('track', 'Purchase', {value: grandTotal, currency: 'DZD'}); } catch(e){};
             sendTelegram(data.name, data.phone, data.wilaya, data.municipality, d, qty);
             confirmView.style.display = 'none';
-            form.style.display = '';
-            var originalFormHTML = form.innerHTML;
+            form.style.display = 'none';
             var count = 5;
-            form.innerHTML = '<div style="text-align:center;padding:32px 24px;background:var(--grad-accent);border-radius:16px;color:#0a0f0b;font-weight:700;font-size:20px;box-shadow:0 8px 32px rgba(212,160,78,0.3);">📞 ابق هاتفك مشغّل<br><span style="font-size:14px;font-weight:400;display:block;margin-top:6px;">فريقنا سيتصل بك الفترة ما بين العصر إلى المغرب</span><span class="btn-countdown" style="display:block;margin-top:10px;font-size:32px;font-weight:900;">' + count + '</span></div>';
+            countdownView.innerHTML = '📞 ابق هاتفك مشغّل<br><span style="font-size:14px;font-weight:400;display:block;margin-top:6px;">فريقنا سيتصل بك الفترة ما بين العصر إلى المغرب</span><span class="btn-countdown" style="display:block;margin-top:10px;font-size:32px;font-weight:900;">' + count + '</span>';
+            countdownView.style.display = 'block';
             var timer = setInterval(function() {
               count--;
               var el = document.querySelector('.btn-countdown');
               if (el) el.textContent = count;
               if (count <= 0) {
                 clearInterval(timer);
-                form.innerHTML = originalFormHTML;
+                countdownView.style.display = 'none';
+                form.style.display = '';
                 document.getElementById('modalQty').textContent = '1';
                 document.getElementById('modalQtyInput').value = '1';
                 var dFee = document.getElementById('modalDeliveryFee');
@@ -1271,6 +1278,12 @@
           pageConfirm.id = 'pageConfirm';
           pageConfirm.style.display = 'none';
           pageForm.parentNode.insertBefore(pageConfirm, pageForm.nextSibling);
+
+          var pageCountdownView = document.createElement('div');
+          pageCountdownView.id = 'pageCountdownView';
+          pageCountdownView.style.display = 'none';
+          pageCountdownView.setAttribute('style', 'text-align:center;padding:32px 24px;background:linear-gradient(135deg,#d4a04e,#e8bc6a);border-radius:16px;color:#0a0f0b;font-weight:700;font-size:20px;box-shadow:0 8px 32px rgba(212,160,78,0.3);');
+          pageForm.parentNode.insertBefore(pageCountdownView, pageConfirm.nextSibling);
 
           pageForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -1336,17 +1349,18 @@
               sendTelegram(data.name, data.phone, data.wilaya, data.municipality, d, qty);
 
               pageConfirm.style.display = 'none';
-              pageForm.style.display = '';
-              var originalPageHTML = pageForm.innerHTML;
+              pageForm.style.display = 'none';
               var count = 5;
-              pageForm.innerHTML = '<div style="text-align:center;padding:32px 24px;background:var(--grad-accent);border-radius:16px;color:#0a0f0b;font-weight:700;font-size:20px;box-shadow:0 8px 32px rgba(212,160,78,0.3);">📞 ابق هاتفك مشغّل<br><span style="font-size:14px;font-weight:400;display:block;margin-top:6px;">فريقنا سيتصل بك الفترة ما بين العصر إلى المغرب</span><span class="page-countdown" style="display:block;margin-top:10px;font-size:32px;font-weight:900;">' + count + '</span></div>';
+              pageCountdownView.innerHTML = '📞 ابق هاتفك مشغّل<br><span style="font-size:14px;font-weight:400;display:block;margin-top:6px;">فريقنا سيتصل بك الفترة ما بين العصر إلى المغرب</span><span class="page-countdown" style="display:block;margin-top:10px;font-size:32px;font-weight:900;">' + count + '</span>';
+              pageCountdownView.style.display = 'block';
               var timer = setInterval(function() {
                 count--;
                 var el = document.querySelector('.page-countdown');
                 if (el) el.textContent = count;
                 if (count <= 0) {
                   clearInterval(timer);
-                  pageForm.innerHTML = originalPageHTML;
+                  pageCountdownView.style.display = 'none';
+                  pageForm.style.display = '';
                   document.getElementById('pageQtyInput').value = '1';
                   document.getElementById('pageQtyLabel').textContent = '1';
                   var pw = document.getElementById('pageWilaya');

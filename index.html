@@ -131,7 +131,7 @@
       50% { background-position: 100% center; }
     }
 
-    .gallery-grid { display: flex; flex-direction: row; flex-wrap: wrap; }
+    .gallery-grid { display: flex; flex-direction: row; }
 
     .gallery-item {
       position: relative; overflow: hidden; width: 50%; height: 100vh; height: 100svh;
@@ -600,16 +600,20 @@
       </div>
       <div class="gallery-grid reveal">
         <div class="gallery-item">
-          <img src="shilajit-new-a.jpeg" alt="شيلاجيت" loading="lazy">
-        </div>
-        <div class="gallery-item">
-          <img src="shilajit-new-b.jpeg" alt="شيلاجيت" loading="lazy">
-        </div>
-        <div class="gallery-item">
           <img src="shilajit-new-c.jpeg" alt="شيلاجيت" loading="lazy">
+          <div class="overlay">
+            <div class="tag">🌄 القوة الطبيعية</div>
+            <h3>كنز الهيمالايا الخام</h3>
+            <p>شيلاجيت نقي 100% مستخرج من أعالي جبال الهيمالايا، غني بالفولفيك أسيد والمعادن النادرة ليمنحك حيوية استثنائية.</p>
+          </div>
         </div>
         <div class="gallery-item">
           <img src="shilajit-new-d.jpeg" alt="شيلاجيت" loading="lazy">
+          <div class="overlay">
+            <div class="tag">⚡ أداء بلا حدود</div>
+            <h3>طاقة تدوم وتحديات تُقهر</h3>
+            <p>يمنحك قوة وتحملًا استثنائيين، الخيار الأمثل للرياضيين وكل من يبحث عن نشاط يدوم طوال اليوم.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -781,7 +785,7 @@
       <button class="modal-close" onclick="closeModal()">✕</button>
       <div class="modal-body">
         <div class="modal-product">
-          <img src="shilajit-new-a.jpeg" alt="شيلاجيت" loading="lazy">
+          <img src="shilajit-new-c.jpeg" alt="شيلاجيت" loading="lazy">
           <div>
             <h3>ياكلة شيلاجيت الأصلية</h3>
             <p class="modal-desc">شيلاجيت الهمالايا الخام • 100 جرام</p>

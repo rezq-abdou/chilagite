@@ -396,6 +396,15 @@
 
     .phone-error { font-size:12px; color:#ff4444; display:none; margin-top:-8px; text-align:right; }
 
+    .btn-countdown { font-size:18px; margin:4px 0 2px; }
+    .btn-wa {
+      display:inline-flex; align-items:center; justify-content:center; gap:6px;
+      padding:12px 20px; border-radius:60px; border:none; cursor:pointer;
+      font-family:var(--font); font-size:14px; font-weight:700; text-decoration:none;
+      background:#25D366; color:#fff; transition:all 0.3s;
+    }
+    .btn-wa:hover { background:#1da851; transform:translateY(-2px); }
+
     /* ── 6. FAQ ── */
     .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
     .faq-item {
@@ -586,9 +595,9 @@
                   <option value="" disabled selected>اختر الولاية أولاً</option>
                 </select>
                 <select name="delivery" id="pageDelivery" required>
-                  <option value="" disabled selected>نوع التوصيل</option>
+                  <option value="" disabled>نوع التوصيل</option>
                   <option value="office">توصيل للمكتب</option>
-                  <option value="home">توصيل للمنزل</option>
+                  <option value="home" selected>توصيل للمنزل</option>
                 </select>
                 <div class="qty-wrap">
                   <button type="button" onclick="pageQtyChange(-1)">−</button>
@@ -794,9 +803,9 @@
             <option value="" disabled selected>اختر الولاية أولاً</option>
           </select>
           <select name="delivery" id="modalDelivery" required>
-                  <option value="" disabled selected>نوع التوصيل</option>
+                  <option value="" disabled>نوع التوصيل</option>
                   <option value="office">توصيل للمكتب</option>
-                  <option value="home">توصيل للمنزل</option>
+                  <option value="home" selected>توصيل للمنزل</option>
                 </select>
           <div class="qty-wrap">
             <button type="button" onclick="modalQtyChange(-1)">−</button>
@@ -932,7 +941,7 @@
       var modalMun = document.getElementById('modalMunicipality');
 
       function populateModalMunicipalities(wilayaName) {
-        modalMun.innerHTML = '<option value="" disabled selected>البلدية</option>';
+        modalMun.innerHTML = '<option value="" disabled>البلدية</option>';
         modalMun.disabled = true;
         if (!wilayaName) { return; }
         var code = '';
@@ -947,6 +956,11 @@
           modalMun.appendChild(opt);
         });
         modalMun.disabled = false;
+        if (filtered.length > 0) {
+          modalMun.value = filtered[0].commune_name;
+          var evt = new Event('change', {bubbles:true});
+          modalMun.dispatchEvent(evt);
+        }
       }
 
       function loadWilayas(targetSelect) {
@@ -989,7 +1003,7 @@
       var pageMun = document.getElementById('pageMunicipality');
 
       function populatePageMunicipalities(wilayaName) {
-        pageMun.innerHTML = '<option value="" disabled selected>البلدية</option>';
+        pageMun.innerHTML = '<option value="" disabled>البلدية</option>';
         pageMun.disabled = true;
         if (!wilayaName) { return; }
         var code = '';
@@ -1004,6 +1018,11 @@
           pageMun.appendChild(opt);
         });
         pageMun.disabled = false;
+        if (filtered.length > 0) {
+          pageMun.value = filtered[0].commune_name;
+          var evt = new Event('change', {bubbles:true});
+          pageMun.dispatchEvent(evt);
+        }
       }
 
       window.pageQtyChange = function(delta) {
@@ -1201,7 +1220,8 @@
               (feeText ? '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:var(--text-secondary);">التوصيل</span><span style="font-weight:600;">'+feeText+'</span></div>' : '') +
               '<div style="display:flex;justify-content:space-between;padding:8px 0 0;margin-top:8px;border-top:1px solid var(--border);font-size:18px;font-weight:700;color:var(--primary);"><span>المجموع الكلي</span><span>'+grandTotal.toLocaleString()+' د.ج</span></div>' +
             '</div>' +
-            '<div style="display:flex;gap:10px;margin-top:16px;">' +
+            '<a href="https://wa.me/213555027237?text=' + encodeURIComponent('السلام عليكم أريد طلب شيلاجيت - ' + data.name + ' - ' + data.wilaya) + '" target="_blank" class="btn-wa" style="width:100%;justify-content:center;margin-top:16px;">💬 أرسل عبر واتساب</a>' +
+            '<div style="display:flex;gap:10px;margin-top:10px;">' +
               '<button type="button" onclick="document.getElementById(\'confirmView\').style.display=\'none\';document.getElementById(\'modalForm\').style.display=\'\'" style="flex:1;padding:14px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:15px;cursor:pointer;">تعديل</button>' +
               '<button type="button" id="finalConfirmBtn" class="btn btn-primary" style="flex:1;justify-content:center;padding:14px;font-size:15px;">تأكيد ✓</button>' +
             '</div>';
@@ -1209,23 +1229,32 @@
           form.style.display = 'none';
 
           document.getElementById('finalConfirmBtn').addEventListener('click', function() {
+            this.disabled = true;
+            this.textContent = '⏳ جاري الإرسال...';
             submitToSheet(data, fee, grandTotal);
             try { fbq('track', 'Purchase', {value: grandTotal, currency: 'DZD'}); } catch(e){};
             sendTelegram(data.name, data.phone, data.wilaya, data.municipality, d, qty);
             confirmView.style.display = 'none';
             form.style.display = '';
             var originalFormHTML = form.innerHTML;
-            form.innerHTML = '<div style="text-align:center;padding:32px 24px;background:var(--grad-accent);border-radius:16px;color:#0a0f0b;font-weight:900;font-size:24px;box-shadow:0 8px 32px rgba(212,160,78,0.3);animation:pulse 1.5s infinite;">📞 ابق هاتفك مشغّل<br><span style="font-size:16px;font-weight:600;display:block;margin-top:8px;color:#1a1f1b;">فريقنا سيتصل بك لتأكيد الطلب</span></div><style>@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}</style>';
-            setTimeout(function() {
-              form.innerHTML = originalFormHTML;
-              document.getElementById('modalQty').textContent = '1';
-              document.getElementById('modalQtyInput').value = '1';
-              var dFee = document.getElementById('modalDeliveryFee');
-              var dTot = document.getElementById('modalTotalDisplay');
-              if (dFee) dFee.textContent = '';
-              if (dTot) dTot.innerHTML = '<span style="font-weight:700;">3,500 د.ج</span>';
-              closeModal();
-            }, 5000);
+            var count = 5;
+            form.innerHTML = '<div style="text-align:center;padding:32px 24px;background:var(--grad-accent);border-radius:16px;color:#0a0f0b;font-weight:700;font-size:20px;box-shadow:0 8px 32px rgba(212,160,78,0.3);">📞 ابق هاتفك مشغّل<br><span style="font-size:14px;font-weight:400;display:block;margin-top:6px;">فريقنا سيتصل بك</span><span class="btn-countdown" style="display:block;margin-top:10px;font-size:32px;font-weight:900;">' + count + '</span></div>';
+            var timer = setInterval(function() {
+              count--;
+              var el = document.querySelector('.btn-countdown');
+              if (el) el.textContent = count;
+              if (count <= 0) {
+                clearInterval(timer);
+                form.innerHTML = originalFormHTML;
+                document.getElementById('modalQty').textContent = '1';
+                document.getElementById('modalQtyInput').value = '1';
+                var dFee = document.getElementById('modalDeliveryFee');
+                var dTot = document.getElementById('modalTotalDisplay');
+                if (dFee) dFee.textContent = '';
+                if (dTot) dTot.innerHTML = '<span style="font-weight:700;">3,500 د.ج</span>';
+                closeModal();
+              }
+            }, 1000);
           });
         });
 
@@ -1266,7 +1295,8 @@
                 (feeText ? '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:var(--text-secondary);">التوصيل</span><span style="font-weight:600;">'+feeText+'</span></div>' : '') +
                 '<div style="display:flex;justify-content:space-between;padding:8px 0 0;margin-top:8px;border-top:1px solid var(--border);font-size:18px;font-weight:700;color:var(--primary);"><span>المجموع الكلي</span><span>'+grandTotal.toLocaleString()+' د.ج</span></div>' +
               '</div>' +
-              '<div style="display:flex;gap:10px;margin-top:16px;">' +
+              '<a href="https://wa.me/213555027237?text=' + encodeURIComponent('السلام عليكم أريد طلب شيلاجيت - ' + data.name + ' - ' + data.wilaya) + '" target="_blank" class="btn-wa" style="width:100%;justify-content:center;margin-top:16px;">💬 أرسل عبر واتساب</a>' +
+              '<div style="display:flex;gap:10px;margin-top:10px;">' +
                 '<button type="button" onclick="document.getElementById(\'pageConfirm\').style.display=\'none\';document.getElementById(\'pageForm\').style.display=\'\'" style="flex:1;padding:14px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:15px;cursor:pointer;">تعديل</button>' +
                 '<button type="button" id="pageFinalConfirm" class="btn btn-primary" style="flex:1;justify-content:center;padding:14px;font-size:15px;">تأكيد ✓</button>' +
               '</div>';
@@ -1274,6 +1304,8 @@
             pageForm.style.display = 'none';
 
             document.getElementById('pageFinalConfirm').addEventListener('click', function() {
+              this.disabled = true;
+              this.textContent = '⏳ جاري الإرسال...';
               var t = document.createElement('textarea');
               t.name = 'name'; t.value = data.name; pageForm.appendChild(t);
               t = document.createElement('textarea');
@@ -1300,12 +1332,19 @@
               pageConfirm.style.display = 'none';
               pageForm.style.display = '';
               var originalPageHTML = pageForm.innerHTML;
-              pageForm.innerHTML = '<div style="text-align:center;padding:32px 24px;background:var(--grad-accent);border-radius:16px;color:#0a0f0b;font-weight:900;font-size:24px;box-shadow:0 8px 32px rgba(212,160,78,0.3);animation:pulse 1.5s infinite;">📞 ابق هاتفك مشغّل<br><span style="font-size:16px;font-weight:600;display:block;margin-top:8px;color:#1a1f1b;">فريقنا سيتصل بك لتأكيد الطلب</span></div>';
-              setTimeout(function() {
-                pageForm.innerHTML = originalPageHTML;
-                document.getElementById('pageQtyInput').value = '1';
-                document.getElementById('pageQtyLabel').textContent = '1';
-              }, 5000);
+              var count = 5;
+              pageForm.innerHTML = '<div style="text-align:center;padding:32px 24px;background:var(--grad-accent);border-radius:16px;color:#0a0f0b;font-weight:700;font-size:20px;box-shadow:0 8px 32px rgba(212,160,78,0.3);">📞 ابق هاتفك مشغّل<br><span style="font-size:14px;font-weight:400;display:block;margin-top:6px;">فريقنا سيتصل بك</span><span class="page-countdown" style="display:block;margin-top:10px;font-size:32px;font-weight:900;">' + count + '</span></div>';
+              var timer = setInterval(function() {
+                count--;
+                var el = document.querySelector('.page-countdown');
+                if (el) el.textContent = count;
+                if (count <= 0) {
+                  clearInterval(timer);
+                  pageForm.innerHTML = originalPageHTML;
+                  document.getElementById('pageQtyInput').value = '1';
+                  document.getElementById('pageQtyLabel').textContent = '1';
+                }
+              }, 1000);
             });
           });
         }

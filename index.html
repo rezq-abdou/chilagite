@@ -591,7 +591,7 @@
               <div id="pageDeliveryFee" style="font-size:14px;min-height:22px;margin-top:4px;"></div>
               <div id="pageTotalDisplay" style="font-size:22px;font-weight:900;color:var(--accent);margin-top:6px;">3,500 <small style="font-size:14px;font-weight:400;color:var(--text-secondary);">د.ج</small></div>
             </div>
-            <form class="order-form" id="pageForm">
+            <form class="order-form" id="pageForm" novalidate>
                 <input type="text" name="name" placeholder="الاسم الكامل" required>
                 <input type="tel" name="phone" placeholder="رقم الهاتف" inputmode="numeric" pattern="0[567]\d{8}" maxlength="10" autocomplete="tel" required>
                 <div class="phone-error" id="pagePhoneError"></div>
@@ -799,7 +799,7 @@
           <div class="summary-row"><span style="color:var(--text-secondary);font-size:13px;" id="modalDeliveryFee"></span></div>
           <div class="summary-row total"><span>المجموع</span><span id="modalTotalDisplay"><span style="font-weight:700;">3,500 د.ج</span></span></div>
         </div>
-        <form class="modal-form" id="modalForm">
+        <form class="modal-form" id="modalForm" novalidate>
           <input type="text" name="name" placeholder="الاسم الكامل" required>
            <input type="tel" name="phone" placeholder="رقم الهاتف" inputmode="numeric" pattern="0[567]\d{8}" maxlength="10" autocomplete="tel" required>
            <div class="phone-error" id="modalPhoneError"></div>

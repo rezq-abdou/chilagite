@@ -18,16 +18,16 @@
       --primary-dark: #1f6b3f;
       --primary-light: #4aad77;
       --accent: #d4a04e;
-      --bg: #0f0a06;
-      --bg-card: #18120c;
-      --bg-elevated: #221a12;
-      --text: #e6f0ea;
-      --text-secondary: #a8c4b2;
-      --text-muted: #5f7a69;
-      --border: #2a1e12;
+      --bg: #f5f0eb;
+      --bg-card: #ede7e0;
+      --bg-elevated: #e5ddd4;
+      --text: #1a1816;
+      --text-secondary: #5f5242;
+      --text-muted: #9a8a78;
+      --border: #d6cdc2;
       --grad: linear-gradient(135deg, #2e8b57, #4aad77);
       --grad-accent: linear-gradient(135deg, #d4a04e, #e8bc6a);
-      --shadow: 0 8px 32px rgba(46, 139, 87, 0.18);
+      --shadow: 0 8px 32px rgba(46, 139, 87, 0.12);
       --radius: 12px;
       --font: 'Cairo', sans-serif;
     }
@@ -76,8 +76,8 @@
       padding: 14px 0; transition: 0.3s;
     }
     header.scrolled {
-      background: rgba(8, 12, 9, 0.92); backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(46, 139, 87, 0.08);
+      background: rgba(245, 240, 235, 0.92); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(46, 139, 87, 0.1);
       padding: 8px 0;
     }
     nav { display: flex; align-items: center; justify-content: space-between; }
@@ -456,8 +456,8 @@
     /* ── Sticky Bar ── */
     #sticky-bar {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 99;
-      background: rgba(8, 12, 9, 0.94); backdrop-filter: blur(20px);
-      border-top: 1px solid rgba(46, 139, 87, 0.08);
+      background: rgba(245, 240, 235, 0.94); backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(46, 139, 87, 0.1);
       padding: 10px 24px; display: flex; align-items: center;
       justify-content: center; gap: 20px;
       transform: translateY(100%); transition: transform 0.4s cubic-bezier(.4,0,.2,1);
@@ -477,7 +477,7 @@
       .menu-toggle { display: flex; }
       .nav-links {
         position: fixed; top: 56px; left: 0; right: 0;
-        background: rgba(8, 12, 9, 0.98); backdrop-filter: blur(20px);
+        background: rgba(245, 240, 235, 0.98); backdrop-filter: blur(20px);
         flex-direction: column; padding: 24px; gap: 16px;
         border-bottom: 1px solid var(--border);
         transform: translateY(-120%); opacity: 0; transition: 0.3s;

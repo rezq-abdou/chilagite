@@ -1,0 +1,13 @@
+name: mindset-channels-bot
+service:
+  name: bot
+  instance: free
+  ports:
+    - port: 8080
+      protocol: http
+  routes:
+    - path: /
+  env:
+    - key: BOT_TOKEN
+      value: "8845307308:AAE70czwCM4-T_Xo8AWV5-FkOXYv08aO2Lk"
+  run: python main_simple.py

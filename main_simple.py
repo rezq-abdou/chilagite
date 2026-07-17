@@ -8,7 +8,7 @@ from handlers import router
 
 logging.basicConfig(level=logging.INFO)
 
-TOKEN = os.getenv("BOT_TOKEN", "8845307308:AAE70czwCM4-T_Xo8AWV5-FkOXYv08aO2Lk")
+TOKEN = os.getenv("BOT_TOKEN", "8908723155:AAGM7NEbFj14_1fGn7okVMyMosWlCUCtPAw")
 
 bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode="Markdown"))
 dp = Dispatcher()

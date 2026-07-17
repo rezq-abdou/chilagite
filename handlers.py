@@ -3,23 +3,23 @@ from aiogram.types import Message, CallbackQuery
 from aiogram.filters import Command
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-from data import CATEGORIES, CATEGORY_ORDER
+from data import BOOKS, CATEGORY_ORDER
 
 router = Router()
 
 def main_keyboard():
     kb = InlineKeyboardBuilder()
     for key in CATEGORY_ORDER:
-        cat = CATEGORIES[key]
+        cat = BOOKS[key]
         kb.button(text=cat["name_ar"], callback_data=f"cat_{key}")
     kb.adjust(2)
     return kb.as_markup()
 
 WELCOME = (
-    "🎓 *مرحبًا بك في Mindset Learning Channels*\n\n"
-    "اكتشف أفضل قنوات YouTube التعليمية المختارة بعناية من أشهر الخبراء والمؤسسات حول العالم.\n\n"
-    "📚 اختر المجال الذي ترغب في تعلمه، وستحصل على قائمة مرتبة حسب المستوى (مبتدئ، متوسط، متقدم) مع وصف مختصر لكل قناة لمساعدتك على البدء بالطريق الصحيح.\n\n"
-    "👇 اختر مجال التعلم:"
+    "📚 *مرحبًا بك في The Mindset Library*\n\n"
+    "مكتبتك الرقمية المتكاملة — اختر المجال الذي يهمك واكتشف أفضل الكتب\n"
+    "مع معلومات شاملة عن كل كتاب ورابط تحميل مباشر.\n\n"
+    "👇 اختر المجال:"
 )
 
 @router.message(Command("start"))
@@ -29,10 +29,10 @@ async def cmd_start(msg: Message):
 @router.message(Command("help"))
 async def cmd_help(msg: Message):
     await msg.answer(
-        "🎓 *Mindset Learning Channels*\n\n"
+        "📚 *The Mindset Library*\n\n"
         "الأمر /start — عرض القائمة الرئيسية\n"
         "الأمر /help — هذه المساعدة\n\n"
-        "اختر مجالاً وستظهر لك القنوات مرتبة حسب المستوى."
+        "اختر مجالاً وستظهر لك الكتب مع التفاصيل."
     )
 
 @router.message()
@@ -41,98 +41,55 @@ async def any_message(msg: Message):
 
 @router.callback_query(F.data == "main_menu")
 async def cb_main_menu(cq: CallbackQuery):
-    await cq.message.edit_text("👇 اختر مجال التعلم:", reply_markup=main_keyboard())
+    await cq.message.edit_text("👇 اختر المجال:", reply_markup=main_keyboard())
 
 @router.callback_query(F.data.startswith("cat_"))
-async def cb_show_channels(cq: CallbackQuery):
+async def cb_show_books(cq: CallbackQuery):
     cat_key = cq.data[4:]
-    if cat_key not in CATEGORIES:
+    if cat_key not in BOOKS:
         await cq.answer("القسم غير موجود", show_alert=True)
         return
-    cat = CATEGORIES[cat_key]
+    cat = BOOKS[cat_key]
 
     kb = InlineKeyboardBuilder()
-    idx = 0
-    for level in cat["levels"]:
-        for ch in level["channels"]:
-            kb.button(text=f"📺 {ch['name']}", callback_data=f"ch_{idx}_{cat_key}")
-            idx += 1
-    if cat.get("top_picks"):
-        kb.button(text="🏆 أفضل الاختيارات", callback_data=f"top_{cat_key}")
-    if cat.get("extra_resources"):
-        kb.button(text="📚 مصادر إضافية", callback_data=f"ext_{cat_key}")
+    for idx, book in enumerate(cat["books"]):
+        kb.button(text=f"📖 {book['name']}", callback_data=f"bk_{idx}_{cat_key}")
     kb.button(text="🏠 القائمة الرئيسية", callback_data="main_menu")
     kb.adjust(1)
 
     await cq.message.edit_text(
-        f"🎯 *{cat['name_ar']}*\nاختر القناة لعرض التفاصيل:",
+        f"📚 *{cat['name_ar']}*\nاختر الكتاب لعرض التفاصيل:",
         parse_mode="Markdown",
         reply_markup=kb.as_markup()
     )
 
-@router.callback_query(F.data.startswith("top_"))
-async def cb_top_picks(cq: CallbackQuery):
-    cat_key = cq.data[4:]
-    cat = CATEGORIES[cat_key]
-    kb = InlineKeyboardBuilder()
-    kb.button(text="🔙 الرجوع للقنوات", callback_data=f"cat_{cat_key}")
-    kb.button(text="🏠 القائمة الرئيسية", callback_data="main_menu")
-    kb.adjust(1)
-    await cq.message.edit_text(
-        f"🏆 *أفضل الاختيارات*\n{cat['top_picks']}",
-        parse_mode="Markdown",
-        reply_markup=kb.as_markup()
-    )
-
-@router.callback_query(F.data.startswith("ext_"))
-async def cb_extra(cq: CallbackQuery):
-    cat_key = cq.data[4:]
-    cat = CATEGORIES[cat_key]
-    kb = InlineKeyboardBuilder()
-    kb.button(text="🔙 الرجوع للقنوات", callback_data=f"cat_{cat_key}")
-    kb.button(text="🏠 القائمة الرئيسية", callback_data="main_menu")
-    kb.adjust(1)
-    await cq.message.edit_text(
-        f"📚 *مصادر إضافية*\n{cat['extra_resources']}",
-        parse_mode="Markdown",
-        reply_markup=kb.as_markup()
-    )
-
-@router.callback_query(F.data.startswith("ch_"))
-async def cb_show_channel(cq: CallbackQuery):
+@router.callback_query(F.data.startswith("bk_"))
+async def cb_show_book(cq: CallbackQuery):
     rest = cq.data[3:]
     idx_str, cat_key = rest.split("_", 1)
     idx = int(idx_str)
-    if cat_key not in CATEGORIES:
+
+    if cat_key not in BOOKS:
         await cq.answer("القسم غير موجود", show_alert=True)
         return
-    cat = CATEGORIES[cat_key]
-
-    flat = []
-    for level in cat["levels"]:
-        for ch in level["channels"]:
-            flat.append(ch)
-    if idx >= len(flat):
-        await cq.answer("القناة غير موجودة", show_alert=True)
+    cat = BOOKS[cat_key]
+    if idx >= len(cat["books"]):
+        await cq.answer("الكتاب غير موجود", show_alert=True)
         return
-    ch = flat[idx]
-
-    url = ch['url']
-    if url.startswith('https://www.youtube.com/@') or url.startswith('https://youtube.com/@'):
-        url += '/about'
+    book = cat["books"][idx]
 
     text = (
-        f"📺 *{ch['name']}*\n"
-        f"💡 {ch['why']}\n"
-        f"📚 {ch['content']}\n"
-        f"👤 {ch['for']}\n\n"
-        f"🔗 {url}"
+        f"📖 *{book['name']}*\n"
+        f"👤 *المؤلف:* {book['author']}\n"
+        f"⭐ *التقييم:* {book['rating']}\n"
+        f"📄 *عدد الصفحات:* {book['pages']}\n\n"
+        f"📝 *نبذة عن الكتاب:*\n{book['description']}"
     )
-    if "preview_url" in ch:
-        text += f"\n{ch['preview_url']}"
 
     kb = InlineKeyboardBuilder()
-    kb.button(text="🔙 الرجوع للقنوات", callback_data=f"cat_{cat_key}")
+    if book["url"]:
+        kb.button(text="⬇ تحميل PDF", url=book["url"])
+    kb.button(text="🔙 الرجوع للكتب", callback_data=f"cat_{cat_key}")
     kb.button(text="🏠 القائمة الرئيسية", callback_data="main_menu")
     kb.adjust(1)
 
